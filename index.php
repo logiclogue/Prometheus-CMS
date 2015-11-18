@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Content Management System</title>
+	<title>Prometheus CMS</title>
 </head>
 <body>
 </body>
