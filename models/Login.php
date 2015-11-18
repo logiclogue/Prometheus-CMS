@@ -1,6 +1,6 @@
 <?php
 
-require 'Database.php';
+require dirname(__DIR__) . '/models/Database.php';
 
 
 class Login
@@ -8,6 +8,7 @@ class Login
 	private static $query = 'SELECT hash FROM users WHERE username=:username';
 	private static $username = 'logiclogue';
 	private static $password = 'password';
+	private static $errorMsg = 'Incorrect username or password';
 
 
 	private static function storeSession() {
@@ -21,12 +22,16 @@ class Login
 		if ($result->execute(array(':username' => self::$username))) {
 			$hash = $result->fetchAll(PDO::FETCH_ASSOC)[0]['hash'];
 
+			// check if password matches
 			if (password_verify(self::$password, $hash)) {
 				self::storeSession();
 			}
+			else {
+				echo(self::$errorMsg);
+			}
 		}
 		else {
-			echo('Query failed');
+			echo(self::$errorMsg);
 		}
 	}
 }
