@@ -15,6 +15,18 @@ class Database
 		// start the session
 		session_start();
 	}
+
+	public static function create() {
+		$query = file_get_contents(dirname(__DIR__) . '/database.sql');
+		$result = self::$conn->prepare($query);
+
+		if ($result->execute()) {
+			echo 'Success';
+		}
+		else {
+			echo 'Failure';
+		}
+	}
 }
 
 Database::init();
