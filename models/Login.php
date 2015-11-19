@@ -1,6 +1,7 @@
 <?php
 
 require dirname(__DIR__) . '/models/Database.php';
+require dirname(__DIR__) . '/models/GetJSON.php';
 
 
 class Login
@@ -19,7 +20,8 @@ class Login
 
 	public static function init() {
 		$result = Database::$conn->prepare(self::$query);
-		$data = json_decode($_GET['data'], true);
+		$data = GetJSON::decodeGet();
+		
 		self::$username = $data['username'];
 		self::$password = $data['password'];
 		

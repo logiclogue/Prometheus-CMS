@@ -6,19 +6,19 @@ class GetJSON
 
 
 	public static function decodeGet() {
-		return json_decode($_GET[$name], true);
+		return json_decode($_GET[self::$name], true);
 	}
 
 	public static function decodePost() {
-		return json_decode($_POST[$name], true);
+		return json_decode($_POST[self::$name], true);
 	}
 
 	public static function encodeGet() {
-		return $_GET[$name];
+		return $_GET[self::$name];
 	}
 
-	public static function decodePost() {
-		return $_POST[$name];
+	public static function encodePost() {
+		return $_POST[self::$name];
 	}
 }
 
