@@ -20,6 +20,14 @@ class GetJSON
 	public static function encodePost() {
 		return $_POST[self::$name];
 	}
+
+	public static function isGet() {
+		return isset($_GET[self::$name]);
+	}
+
+	public static function isPost() {
+		return isset($_POST[self::$name]);
+	}
 }
 
 ?>

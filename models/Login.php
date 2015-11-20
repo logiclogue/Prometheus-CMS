@@ -10,20 +10,14 @@ class Login
 	private static $username;
 	private static $password;
 	private static $errorMsg = 'Incorrect username or password';
+	private static $data;
 
 
-	private static function storeSession() {
-		$_SESSION['username'] = self::$username;
-
-		echo 'Successfully logged in';
-	}
-
-	public static function init() {
+	private static function main() {
 		$result = Database::$conn->prepare(self::$query);
-		$data = GetJSON::decodeGet();
 		
-		self::$username = $data['username'];
-		self::$password = $data['password'];
+		self::$username = self::$data['username'];
+		self::$password = self::$data['password'];
 		
 		// check if query is successful
 		if ($result->execute(array(':username' => self::$username))) {
@@ -40,6 +34,25 @@ class Login
 		else {
 			echo(self::$errorMsg);
 		}
+	}
+
+	private static function storeSession() {
+		$_SESSION['username'] = self::$username;
+
+		echo 'Successfully logged in';
+	}
+
+
+	public static function init() {
+		if (GetJSON::isGet()) {
+			self::$data = GetJSON::decodeGet();
+			self::main();
+		}
+	}
+
+	public static function call($json) {
+		self::$data = json_decode($json, true);
+		self::main();
 	}
 }
 
