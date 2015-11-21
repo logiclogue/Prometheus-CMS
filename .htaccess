@@ -1,0 +1,10 @@
+Options -MultiViews
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^ index.php [QSA,L]
+
+<Files ~ "env\.json">
+	Order allow,deny
+	Deny from all
+	Satisfy All
+</Files>

@@ -1,31 +1,28 @@
 <?php
 
+session_start();
+
+
 class Status
 {
-	private static $status = array();
-	private static $user = array();
+	private static $all = array();
 
 
 	private static function encode() {
-		$all = array();
-		$json = '';
-
-		$all['status'] = self::$status;
-		$all['user'] = self::$user;
-
-		$json = json_encode($all);
+		$json = json_encode(self::$all);
 
 		echo $json;
 	}
 
 	public static function init() {
-		session_start();
-
-		if (isset($_SESSION['username'])) {
-			self::$user['username'] = $_SESSION['username'];
+		if (isset($_SESSION['user'])) {
+			self::$all['user'] = $_SESSION['user'];
+		}
+		else {
+			self::$all['user'] = array();
 		}
 
-		self::$status['logged_in'] = isset($_SESSION['username']);
+		self::$all['logged_in'] = isset($_SESSION['username']);
 	
 		self::encode();
 	}

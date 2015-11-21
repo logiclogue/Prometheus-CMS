@@ -1,4 +1,4 @@
-<?php require 'models/Database.php'; ?>
+<?php require_once('models/Status.php'); session_start(); ?>
 
 <!DOCTYPE html>
 <html>
@@ -6,6 +6,6 @@
 	<title>Prometheus CMS</title>
 </head>
 <body>
-	<?php echo $_SESSION['username']; ?>
+
 </body>
 </html>
