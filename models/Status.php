@@ -22,7 +22,7 @@ class Status
 			self::$all['user'] = array();
 		}
 
-		self::$all['logged_in'] = isset($_SESSION['username']);
+		self::$all['logged_in'] = isset($_SESSION['user']['id']);
 	
 		self::encode();
 	}
