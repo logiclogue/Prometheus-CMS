@@ -59,12 +59,17 @@ class Login
 	public static function logout($json) {
 		session_unset();
 		session_destroy();
+		
+		echo 'true';
 	}
 
 	public static function init() {
-		if (GetJSON::isGet()) {
+		if (GetJSON::isGet() && GetJSON::decodeGet()['command'] == 'login') {
 			self::$data = GetJSON::decodeGet();
 			self::main();
+		}
+		else if (GetJSON::isGet() && GetJSON::decodeGet()['command'] == 'logout') {
+			self::logout();
 		}
 	}
 }
