@@ -1,4 +1,4 @@
-<?php require_once('models/Status.php'); session_start(); ?>
+<?php require_once('models/GetPost.php'); session_start(); ?>
 
 <!DOCTYPE html>
 <html>
@@ -6,6 +6,6 @@
 	<title>Prometheus CMS</title>
 </head>
 <body>
-
+	<?php GetPost::call(array('title' => 'Test Post')); ?>
 </body>
 </html>
