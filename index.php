@@ -6,6 +6,6 @@
 	<title>Prometheus CMS</title>
 </head>
 <body>
-	<?php GetPost::call(array('title' => 'Test Post')); ?>
+	<?php echo GetPost::call(array('title' => 'Test Post'))['content']; ?>
 </body>
 </html>

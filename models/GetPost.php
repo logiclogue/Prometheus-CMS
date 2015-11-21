@@ -8,6 +8,7 @@ class GetPost
 {
 	private static $query = 'SELECT * FROM posts WHERE title=:title';
 	private static $title = '';
+	private static $is_echo = false;
 
 
 	private static function main() {
@@ -16,23 +17,23 @@ class GetPost
 		if ($result->execute(array(':title' => self::$title))) {
 			$result = $result->fetchAll(PDO::FETCH_ASSOC)[0];
 
-			echo json_encode($result);
-		}
-		else {
-			echo 'false';
+			return $result;
 		}
 	}
 
 
 	public static function call($data) {
 		self::$title = $data['title'];
-		self::main();
+		
+		return self::main();
 	}
 
 	public static function init() {
 		if (GetJSON::isGet()) {
+			self::$is_echo = true;
 			self::$title = GetJSON::decodeGet()['title'];
-			self::main();
+
+			echo self::main();
 		}
 	}
 }
