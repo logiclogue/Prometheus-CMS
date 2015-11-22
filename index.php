@@ -1,4 +1,4 @@
-<?php require_once('models/GetPost.php'); session_start(); ?>
+<?php require_once('models/GetPost.php'); require_once('lib/Parsedown.php'); session_start(); ?>
 
 <!DOCTYPE html>
 <html>
@@ -6,6 +6,12 @@
 	<title>Prometheus CMS</title>
 </head>
 <body>
-	<?php echo GetPost::call(array('title' => 'Test Post'))['content']; ?>
+	<?php
+
+	$parsedown = new Parsedown();
+
+	echo $parsedown->text(GetPost::call(array('title' => 'Test Post'))['content']);
+
+	?>
 </body>
 </html>
