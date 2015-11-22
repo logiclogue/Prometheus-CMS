@@ -2,22 +2,29 @@
 
 require_once(dirname(__DIR__) . '/models/Database.php');
 require_once(dirname(__DIR__) . '/models/GetJSON.php');
+require_once(dirname(__DIR__) . '/lib/Parsedown.php');
 
 
 class GetPost
 {
 	private static $query = 'SELECT * FROM posts WHERE title=:title';
 	private static $title = '';
-	private static $is_echo = false;
 
 
 	private static function main() {
+		$parsedown = new Parsedown();
 		$result = Database::$conn->prepare(self::$query);
 
-		if ($result->execute(array(':title' => self::$title))) {
+		$result->bindParam(':title', self::$title);
+
+		if ($result->execute()) {
 			$result = $result->fetchAll(PDO::FETCH_ASSOC)[0];
+			$result['content'] = $parsedown->text($result['content']);
 
 			return $result;
+		}
+		else {
+			return false;
 		}
 	}
 
@@ -30,10 +37,9 @@ class GetPost
 
 	public static function init() {
 		if (GetJSON::isGet()) {
-			self::$is_echo = true;
 			self::$title = GetJSON::decodeGet()['title'];
 
-			echo self::main();
+			echo json_encode(self::main());
 		}
 	}
 }

@@ -1,4 +1,4 @@
-<?php require_once('models/GetPost.php'); require_once('lib/Parsedown.php'); session_start(); ?>
+<?php require_once('models/GetPost.php'); session_start(); ?>
 
 <!DOCTYPE html>
 <html>
@@ -10,7 +10,7 @@
 
 	$parsedown = new Parsedown();
 
-	echo $parsedown->text(GetPost::call(array('title' => 'Test Post'))['content']);
+	echo GetPost::call(array('title' => 'Test Title'))['content'];
 
 	?>
 </body>
