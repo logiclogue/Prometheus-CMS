@@ -64,11 +64,11 @@ class Login
 	}
 
 	public static function init() {
-		if (GetJSON::isGet() && GetJSON::decodeGet()['command'] == 'login') {
-			self::$data = GetJSON::decodeGet();
+		if (GetJSON::isPost() && GetJSON::decodePost()['command'] == 'login') {
+			self::$data = GetJSON::decodePost();
 			echo json_encode(self::main());
 		}
-		else if (GetJSON::isGet() && GetJSON::decodeGet()['command'] == 'logout') {
+		else if (GetJSON::isPost() && GetJSON::decodePost()['command'] == 'logout') {
 			echo json_encode(self::logout());
 		}
 	}

@@ -41,8 +41,8 @@ class CreatePost
 	}
 
 	public static function init() {
-		if (GetJSON::isGet()) {
-			self::$data = GetJSON::decodeGet();
+		if (GetJSON::isPost()) {
+			self::$data = GetJSON::decodePost();
 
 			echo json_encode(self::main());
 		}
