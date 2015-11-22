@@ -29,14 +29,14 @@ class Login
 
 			// check if password matches
 			if (password_verify(self::$password, $hash)) {
-				self::storeSession();
+				return self::storeSession();
 			}
 			else {
-				echo(self::$errorMsg);
+				return false;
 			}
 		}
 		else {
-			echo(self::$errorMsg);
+			return false;
 		}
 	}
 
@@ -47,7 +47,7 @@ class Login
 		$_SESSION['user']['first_name'] = self::$user['first_name'];
 		$_SESSION['user']['last_name'] = self::$user['last_name'];
 
-		echo 'true';
+		return true;
 	}
 
 
@@ -60,16 +60,16 @@ class Login
 		session_unset();
 		session_destroy();
 		
-		echo 'true';
+		return true;
 	}
 
 	public static function init() {
 		if (GetJSON::isGet() && GetJSON::decodeGet()['command'] == 'login') {
 			self::$data = GetJSON::decodeGet();
-			self::main();
+			echo json_encode(self::main());
 		}
 		else if (GetJSON::isGet() && GetJSON::decodeGet()['command'] == 'logout') {
-			self::logout();
+			echo json_encode(self::logout());
 		}
 	}
 }

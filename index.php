@@ -6,12 +6,6 @@
 	<title>Prometheus CMS</title>
 </head>
 <body>
-	<?php
-
-	$parsedown = new Parsedown();
-
-	echo GetPost::call(array('title' => 'Test Title'))['content'];
-
-	?>
+	<?php echo GetPost::call(array('title' => 'Test Title'))['content']; ?>
 </body>
 </html>

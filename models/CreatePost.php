@@ -3,6 +3,8 @@
 require_once(dirname(__DIR__) . '/models/Database.php');
 require_once(dirname(__DIR__) . '/models/GetJSON.php');
 
+session_start();
+
 
 class CreatePost
 {
@@ -11,15 +13,20 @@ class CreatePost
 
 
 	private static function main() {
-		$result = Database::$conn->prepare(self::$query);
+		if (isset($_SESSION['user']['id'])) {
+			$result = Database::$conn->prepare(self::$query);
 
-		$result->bindParam(':id', self::$data['id']);
-		$result->bindParam(':title', self::$data['title']);
-		$result->bindParam(':content', self::$data['content']);
-		$result->bindParam(':date', self::$data['date']);
+			$result->bindParam(':id', self::$data['id']);
+			$result->bindParam(':title', self::$data['title']);
+			$result->bindParam(':content', self::$data['content']);
+			$result->bindParam(':date', self::$data['date']);
 
-		if ($result->execute()) {
-			return true;
+			if ($result->execute()) {
+				return true;
+			}
+			else {
+				return false;
+			}
 		}
 		else {
 			return false;
