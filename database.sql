@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 21, 2015 at 10:45 PM
+-- Generation Time: Nov 22, 2015 at 03:08 PM
 -- Server version: 5.5.46-0ubuntu0.14.04.2
 -- PHP Version: 5.5.9-1ubuntu4.14
 
@@ -28,18 +28,19 @@ SET time_zone = "+00:00";
 
 CREATE TABLE IF NOT EXISTS `posts` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
-  `title` varchar(128) DEFAULT NULL,
+  `title` varchar(128) NOT NULL,
   `content` text NOT NULL,
   `date` date NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `posts`
 --
 
 INSERT INTO `posts` (`id`, `title`, `content`, `date`) VALUES
-(1, 'Test Post', 'This is the content of the post.<br>\r\nIsn''t it <b>cool</b>?', '2015-11-21');
+(1, 'Test Title', 'This is **awesome**!', '2015-11-21'),
+(2, 'Jordan''s First Post', 'This is **COOOL**', '0000-00-00');
 
 -- --------------------------------------------------------
 
