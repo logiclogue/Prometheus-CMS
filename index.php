@@ -7,5 +7,8 @@
 </head>
 <body>
 	<?php echo GetPost::call(array('title' => 'Test Title'))['content']; ?>
+
+
+	<script src="js/Main.js"></script>
 </body>
 </html>
