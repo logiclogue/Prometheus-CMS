@@ -8,7 +8,7 @@
 	<script src="lib/angular.min.js"></script>
 	<script src="js/Main.js"></script>
 </head>
-<body ng-app="">
+<body ng-app="promethius-cms">
 	<div id="page-nav">
 		<ul>
 			<li>Posts</li>
@@ -16,7 +16,7 @@
 		</ul>
 	</div>
 
-	<div id="page-login">
+	<div ng-controller="login" id="page-login">
 		<table>
 			<tr>
 				<td>Username</td>
@@ -31,10 +31,10 @@
 		<button>Login</button>
 	</div>
 
-	<div id="page-content">
-		<h1 id="h1-title"></h1>
-		<div id="div-content"></div>
-		<small id="small-date"></small>
+	<div id="page-content" ng-controller="content">
+		<h1 id="h1-title" ng-bind="title"></h1>
+		<div id="div-content" ng-bind="content"></div>
+		<small id="small-date" ng-bind="date"></small>
 	</div>
 </body>
 </html>

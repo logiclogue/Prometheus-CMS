@@ -38,7 +38,7 @@ class GetPost
 	public static function init() {
 		if (GetJSON::isPost()) {
 			self::$title = GetJSON::decodePost()['title'];
-
+			
 			echo json_encode(self::main());
 		}
 	}
