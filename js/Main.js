@@ -25,8 +25,7 @@ var Ajax = new (function ()
 
 var Main = new (function ()
 {
-
-	(function () {
+	window.addEventListener('load', function () {
 		Ajax.data = {
 			title: 'Test Title'
 		};
@@ -34,5 +33,5 @@ var Main = new (function ()
 		Ajax.call(function (data) {
 			console.log(data);
 		});
-	}());
+	});
 });
