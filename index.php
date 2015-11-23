@@ -20,15 +20,15 @@
 		<table>
 			<tr>
 				<td>Username</td>
-				<td><input id="input-username" type="text"></td>
+				<td><input id="input-username" type="text" ng-model="username"></td>
 			</tr>
 			<tr>
 				<td>Password</td>
-				<td><input id="input-password" type="password"></td>
+				<td><input id="input-password" type="password" ng-model="password"></td>
 			</tr>
 		</table>
 
-		<button>Login</button>
+		<button ng-click="submit()">Login</button>
 	</div>
 
 	<div id="page-content" ng-controller="content">
