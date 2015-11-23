@@ -33,7 +33,7 @@
 
 	<div id="page-content" ng-controller="content">
 		<h1 id="h1-title" ng-bind="title"></h1>
-		<div id="div-content" ng-bind="content"></div>
+		<div id="div-content" ng-bind-html="content"></div>
 		<small id="small-date" ng-bind="date"></small>
 	</div>
 </body>
