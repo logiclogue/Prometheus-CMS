@@ -6,6 +6,7 @@
 	<title>Prometheus CMS</title>
 
 	<script src="lib/angular.min.js"></script>
+	<script src="lib/angular-route.min.js"></script>
 	<script src="js/Main.js"></script>
 </head>
 <body ng-app="promethius-cms">
