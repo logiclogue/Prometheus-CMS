@@ -5,7 +5,7 @@ app.controller('LoginCtrl', function ($scope, $http, $location, status)
 
 	function checkLoggedIn(response) {
 		if (JSON.parse(response)) {
-			$location.path('/');
+			$location.path('/posts');
 		}
 	}
 

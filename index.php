@@ -1,5 +1,3 @@
-<?php require_once('models/GetPost.php'); session_start(); ?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,6 +9,7 @@
 	<script src="controllers/status.js"></script>
 	<script src="controllers/LoginCtrl.js"></script>
 	<script src="controllers/ContentCtrl.js"></script>
+	<script src="controllers/PostsCtrl.js"></script>
 </head>
 <body ng-app="promethius-cms">
 
