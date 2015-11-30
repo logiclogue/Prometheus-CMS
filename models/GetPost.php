@@ -7,7 +7,7 @@ require_once(dirname(__DIR__) . '/lib/Parsedown.php');
 
 class GetPost
 {
-	private static $query = 'SELECT * FROM posts WHERE title=:title';
+	private static $query = 'SELECT * FROM posts WHERE title = CASE WHEN :title IS NULL THEN title ELSE :title END';
 	private static $title = '';
 
 
@@ -18,8 +18,11 @@ class GetPost
 		$result->bindParam(':title', self::$title);
 
 		if ($result->execute()) {
-			$result = $result->fetchAll(PDO::FETCH_ASSOC)[0];
-			$result['content'] = $parsedown->text($result['content']);
+			$result = $result->fetchAll(PDO::FETCH_ASSOC);
+
+			foreach ($result as &$value) {
+				$value['content'] = $parsedown->text($value['content']);
+			}
 
 			return $result;
 		}
