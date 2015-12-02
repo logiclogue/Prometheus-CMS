@@ -13,6 +13,8 @@ app.controller('ContentCtrl', function ($scope, $sce, $http, status)
 		headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 	})
 	.then(function (response) {
+		response.data = response.data[0];
+		
 		$scope.title = response.data.title;
 		$scope.content = $sce.trustAsHtml(response.data.content);
 		$scope.date = response.data.date;

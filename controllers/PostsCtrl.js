@@ -18,6 +18,5 @@ app.controller('PostsCtrl', function ($scope, $http, $location, status)
 	})
 	.then(function (response) {
 		$scope.posts = response.data;
-		console.log($scope.posts);
 	});
 });
