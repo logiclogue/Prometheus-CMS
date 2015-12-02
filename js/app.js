@@ -16,6 +16,10 @@ app.config(['$routeProvider', function ($routeProvider)
 		templateUrl: 'views/posts.html',
 		controller: 'PostsCtrl'
 	})
+	.when('/posts/:param', {
+		templateUrl: 'views/edit.html',
+		controller: 'EditCtrl'
+	})
 	.otherwise({
 		redirectTo: '/login'
 	});

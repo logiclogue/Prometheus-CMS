@@ -10,6 +10,7 @@
 	<script src="controllers/LoginCtrl.js"></script>
 	<script src="controllers/ContentCtrl.js"></script>
 	<script src="controllers/PostsCtrl.js"></script>
+	<script src="controllers/EditCtrl.js"></script>
 </head>
 <body ng-app="promethius-cms">
 
