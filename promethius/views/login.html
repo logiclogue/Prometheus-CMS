@@ -1,14 +1,19 @@
-<div id="page-login">
-	<table>
-		<tr>
-			<td>Username</td>
-			<td><input id="input-username" type="text" ng-model="username"></td>
-		</tr>
-		<tr>
-			<td>Password</td>
-			<td><input id="input-password" type="password" ng-model="password"></td>
-		</tr>
-	</table>
+<div id="page-login" class="container">
 
-	<button ng-click="submit()">Login</button>
+	<h1>PROMETHIUS CMS</h1>
+
+	<div class="row">
+		<label>Username</label>
+		<input id="input-username" class="u-full-width" type="text" ng-model="username">
+	</div>
+
+	<div class="row">
+		<label>Password</label>
+		<input id="input-password" class="u-full-width" type="password" ng-model="password">
+	</div>
+
+	<div class="row">
+		<button ng-click="submit()">Login</button>
+	</div>
+
 </div>

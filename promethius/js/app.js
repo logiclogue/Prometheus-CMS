@@ -5,12 +5,12 @@ app.config(['$routeProvider', function ($routeProvider)
 {
 	$routeProvider
 	.when('/', {
-		templateUrl: 'views/content.html',
-		controller: 'ContentCtrl'
-	})
-	.when('/login', {
 		templateUrl: 'views/login.html',
 		controller: 'LoginCtrl'
+	})
+	.when('/content', {
+		templateUrl: 'views/content.html',
+		controller: 'ContentCtrl'
 	})
 	.when('/posts', {
 		templateUrl: 'views/posts.html',
