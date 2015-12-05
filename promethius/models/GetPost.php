@@ -9,6 +9,7 @@ class GetPost
 {
 	private static $query = 'SELECT * FROM posts WHERE title = CASE WHEN :title IS NULL THEN title ELSE :title END';
 	private static $title = '';
+	private static $params = array();
 
 
 	private static function main() {
@@ -19,9 +20,11 @@ class GetPost
 
 		if ($result->execute()) {
 			$result = $result->fetchAll(PDO::FETCH_ASSOC);
-
+			
 			foreach ($result as &$value) {
-				$value['content'] = $parsedown->text($value['content']);
+				if (self::$params['format'] == 'HTML') {
+					$value['content'] = $parsedown->text($value['content']);
+				}
 			}
 
 			return $result;
@@ -33,6 +36,7 @@ class GetPost
 
 
 	public static function call($data) {
+		self::$params = $data;
 		self::$title = $data['title'];
 		
 		return self::main();
@@ -40,7 +44,8 @@ class GetPost
 
 	public static function init() {
 		if (GetJSON::isPost()) {
-			self::$title = GetJSON::decodePost()['title'];
+			self::$params = GetJSON::decodePost();
+			self::$title = self::$params['title'];
 			
 			echo json_encode(self::main());
 		}

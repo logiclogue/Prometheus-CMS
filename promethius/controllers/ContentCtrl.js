@@ -1,7 +1,8 @@
 app.controller('ContentCtrl', function ($scope, $sce, $http, status)
 {
 	var data = {
-		title: 'Test Title'
+		title: 'Test Title',
+		format: 'HTML'
 	};
 
 	$scope.isLoggedIn = false;

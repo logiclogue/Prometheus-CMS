@@ -8,6 +8,10 @@ app.config(['$routeProvider', function ($routeProvider)
 		templateUrl: 'views/login.html',
 		controller: 'LoginCtrl'
 	})
+	.when('/login', {
+		templateUrl: 'views/login.html',
+		controller: 'LoginCtrl'
+	})
 	.when('/content', {
 		templateUrl: 'views/content.html',
 		controller: 'ContentCtrl'
