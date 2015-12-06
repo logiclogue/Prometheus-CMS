@@ -17,6 +17,14 @@ app.controller('EditCtrl', function ($scope, $http, $location, $routeParams, sta
 		headers:{ 'Content-Type': 'application/x-www-form-urlencoded' }
 	})
 	.then(function (response) {
+		// redirect if post doesn't exist
+		if (response.data.length === 0) {
+			$location.path('/posts');
+			alert("Post doesn't exit");
+
+			return;
+		}
+
 		$scope.title = response.data[0].title;
 		$scope.content = response.data[0].content;
 	});
