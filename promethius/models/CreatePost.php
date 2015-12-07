@@ -8,25 +8,29 @@ session_start();
 
 class CreatePost
 {
-	private static $query = 'INSERT INTO posts (id, title, content, date) VALUES (:id, :title, :content, :date) ON DUPLICATE KEY UPDATE title=:title, content=:content, date=:date';
+	private static $createQuery = 'INSERT INTO posts (id, title, content, date) VALUES (:id, :title, :content, :date) ON DUPLICATE KEY UPDATE title=:title, content=:content, date=:date';
 	private static $data = array();
 
 
+	private static function create() {
+		$result = Database::$conn->prepare(self::$createQuery);
+
+		$result->bindParam(':id', self::$data['id']);
+		$result->bindParam(':title', self::$data['title']);
+		$result->bindParam(':content', self::$data['content']);
+		$result->bindParam(':date', self::$data['date']);
+
+		if ($result->execute()) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+
 	private static function main() {
 		if (isset($_SESSION['user']['id'])) {
-			$result = Database::$conn->prepare(self::$query);
-
-			$result->bindParam(':id', self::$data['id']);
-			$result->bindParam(':title', self::$data['title']);
-			$result->bindParam(':content', self::$data['content']);
-			$result->bindParam(':date', self::$data['date']);
-
-			if ($result->execute()) {
-				return true;
-			}
-			else {
-				return false;
-			}
+			self::create();
 		}
 		else {
 			return false;

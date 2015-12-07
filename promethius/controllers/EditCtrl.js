@@ -34,7 +34,7 @@ app.controller('EditCtrl', function ($scope, $http, $location, $routeParams, sta
 
 
 	$scope.update = function () {
-
+		
 	};
 
 

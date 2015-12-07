@@ -10,6 +10,12 @@ app.controller('PostsCtrl', function ($scope, $http, $location, status)
 		}
 	});
 
+
+	$scope.createPost = function () {
+		$location.path('/posts/new');
+	};
+
+
 	$http({
 		url: 'models/GetPost.php',
 		method: 'POST',
