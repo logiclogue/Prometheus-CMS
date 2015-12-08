@@ -1,7 +1,7 @@
 <?php
 
+require_once(dirname(__DIR__) . '/models/Model.php');
 require_once(dirname(__DIR__) . '/models/Database.php');
-require_once(dirname(__DIR__) . '/models/GetJSON.php');
 require_once(dirname(__DIR__) . '/lib/Parsedown.php');
 
 
@@ -12,22 +12,21 @@ class GetPost
 		title = CASE WHEN :title IS NULL THEN title ELSE :title END AND
 		id = CASE WHEN :id IS NULL THEN id ELSE :id END
 SQL;
-	private static $title = '';
-	private static $params = array();
+	private static $data = array();
 
 
 	private static function main() {
 		$parsedown = new Parsedown();
 		$result = Database::$conn->prepare(self::$query);
 
-		$result->bindParam(':title', self::$title);
-		$result->bindParam(':id', self::$params['id']);
+		$result->bindParam(':title', self::$data['title']);
+		$result->bindParam(':id', self::$data['id']);
 
 		if ($result->execute()) {
 			$result = $result->fetchAll(PDO::FETCH_ASSOC);
 			
 			foreach ($result as &$value) {
-				if (self::$params['format'] == 'HTML') {
+				if (self::$data['format'] == 'HTML') {
 					$value['content'] = $parsedown->text($value['content']);
 				}
 			}
@@ -41,16 +40,14 @@ SQL;
 
 
 	public static function call($data) {
-		self::$params = $data;
-		self::$title = $data['title'];
+		self::$data = $data;
 		
 		return self::main();
 	}
 
 	public static function init() {
 		if (GetJSON::isPost()) {
-			self::$params = GetJSON::decodePost();
-			self::$title = self::$params['title'];
+			self::$data = GetJSON::decodePost();
 			
 			echo json_encode(self::main());
 		}
