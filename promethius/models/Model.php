@@ -5,20 +5,20 @@ require_once(dirname(__DIR__) . '/models/GetJSON.php');
 
 class Model
 {
-	private static $data = array();
+	protected static $data = array();
 
 
 	public static function call($data) {
 		self::$data = $data;
 
-		return self::main();
+		return static::main();
 	}
 
 	public static function init() {
 		if (GetJSON::isPost()) {
 			self::$data = GetJSON::decodePost();
 
-			echo json_encode(self::main());
+			echo json_encode(static::main());
 		}
 	}
 }

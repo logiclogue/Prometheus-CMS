@@ -5,17 +5,16 @@ require_once(dirname(__DIR__) . '/models/Database.php');
 require_once(dirname(__DIR__) . '/lib/Parsedown.php');
 
 
-class GetPost
+class GetPost extends Model
 {
 	private static $query = <<<SQL
 		SELECT * FROM posts WHERE
 		title = CASE WHEN :title IS NULL THEN title ELSE :title END AND
 		id = CASE WHEN :id IS NULL THEN id ELSE :id END
 SQL;
-	private static $data = array();
 
 
-	private static function main() {
+	public static function main() {
 		$parsedown = new Parsedown();
 		$result = Database::$conn->prepare(self::$query);
 
@@ -35,21 +34,6 @@ SQL;
 		}
 		else {
 			return false;
-		}
-	}
-
-
-	public static function call($data) {
-		self::$data = $data;
-		
-		return self::main();
-	}
-
-	public static function init() {
-		if (GetJSON::isPost()) {
-			self::$data = GetJSON::decodePost();
-			
-			echo json_encode(self::main());
 		}
 	}
 }
