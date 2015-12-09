@@ -16,7 +16,7 @@ app.controller('EditCtrl', function ($scope, $http, $location, $routeParams, sta
 			url: 'models/GetPost.php',
 			method: 'POST',
 			data: 'JSON=' + JSON.stringify(data),
-			headers:{ 'Content-Type': 'application/x-www-form-urlencoded' }
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 		})
 		.then(function (response) {
 			// redirect if post doesn't exist
@@ -34,13 +34,27 @@ app.controller('EditCtrl', function ($scope, $http, $location, $routeParams, sta
 
 
 	$scope.update = function () {
-		
+		data.id = null;
+		data.title = $scope.title;
+		data.content = $scope.content;
+		data.date = '0000-00-00';
+		console.log(data);
+
+		$http({
+			url: 'models/CreatePost.php',
+			method: 'POST',
+			data: 'JSON=' + JSON.stringify(data),
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+		})
+		.then(function (response) {
+			console.log(response.data);
+		});
 	};
 
 
 	(function () {
 		if ($routeParams.param === 'new') {
-			console.log('you want new?');
+			
 		}
 		else {
 			getPost();

@@ -14,7 +14,7 @@ class GetPost extends Model
 SQL;
 
 
-	public static function main() {
+	protected static function main() {
 		$parsedown = new Parsedown();
 		$result = Database::$conn->prepare(self::$query);
 

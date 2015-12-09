@@ -1,9 +1,9 @@
 <div id="page-posts" class="container">
 
-	<input class="u-full-width" type="text" value="{{ title }}">
+	<input class="u-full-width" type="text" ng-model="title">
 
-	<textarea class="u-full-width">{{ content }}</textarea>
+	<textarea class="u-full-width" ng-model="content"></textarea>
 
-	<button>Update</button>
+	<button ng-click="update()">Update</button>
 
 </div>
