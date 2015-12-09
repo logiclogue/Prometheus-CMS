@@ -6,17 +6,16 @@ require_once(dirname(__DIR__) . '/models/Database.php');
 session_start();
 
 
-class CreatePost extends Model
+class DeletePost extends Model
 {
-	private static $query = 'INSERT INTO posts (title, content, date) VALUES (:title, :content, :date)';
+	private static $query = 'DELETE FROM posts WHERE id=:id OR title=:title';
 
 
-	private static function create() {
+	private static function delete() {
 		$result = Database::$conn->prepare(self::$query);
 
+		$result->bindParam(':id', self::$data['id']);
 		$result->bindParam(':title', self::$data['title']);
-		$result->bindParam(':content', self::$data['content']);
-		$result->bindParam(':date', self::$data['date']);
 
 		if ($result->execute()) {
 			return true;
@@ -27,16 +26,14 @@ class CreatePost extends Model
 	}
 
 	protected static function main() {
-		// check to see if user is logged in before creating post
+		// check to see if the user is logged in before deleting a post
 		if (isset($_SESSION['user']['id'])) {
-			self::create();
+			self::delete();
 		}
 		else {
 			return false;
 		}
 	}
 }
-
-CreatePost::init();
 
 ?>

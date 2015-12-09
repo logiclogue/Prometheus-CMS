@@ -1,12 +1,13 @@
 <?php
 
+requrie_once(dirname(__DIR__) . '/models/Model.php');
 require_once(dirname(__DIR__) . '/models/Database.php');
 require_once(dirname(__DIR__) . '/models/GetJSON.php');
 
 session_start();
 
 
-class Login
+class Login extends Model
 {
 	private static $query = 'SELECT id, username, first_name, last_name, hash FROM users WHERE username=:username';
 	private static $username;
@@ -50,11 +51,6 @@ class Login
 		return true;
 	}
 
-
-	public static function call($json) {
-		self::$data = json_decode($json, true);
-		self::main();
-	}
 
 	public static function logout($json) {
 		session_unset();

@@ -15,6 +15,10 @@ app.controller('PostsCtrl', function ($scope, $http, $location, status)
 		$location.path('/posts/new');
 	};
 
+	$scope.delete = function () {
+		console.log('DELETE?');
+	};
+
 
 	$http({
 		url: 'models/GetPost.php',

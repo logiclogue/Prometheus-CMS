@@ -2,10 +2,17 @@
 
 	<button ng-click="createPost()">Create post</button>
 
-	<ul>
-		<li ng-repeat="x in posts">
-			<a href="#/posts/{{x.id}}">{{ x.title }}</a>
-		</li>
-	</ul>
+	<table>
+		<tbody>
+			<tr ng-repeat="x in posts">
+				<td>
+					<a href="#/posts/{{x.id}}">{{ x.title }}</a>
+				</td>
+				<td>
+					<a ng-click="delete()">Delete</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 
 </div>
