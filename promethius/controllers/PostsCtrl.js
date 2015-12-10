@@ -1,4 +1,4 @@
-app.controller('PostsCtrl', function ($scope, $http, $location, status)
+app.controller('PostsCtrl', function ($scope, $http, $location, $route, status)
 {
 	var data = {
 		title: null
@@ -25,6 +25,8 @@ app.controller('PostsCtrl', function ($scope, $http, $location, status)
 		.then(function (response) {
 			console.log(response);
 		});
+
+		$route.reload();
 	};
 
 
