@@ -1,6 +1,6 @@
 <?php
 
-requrie_once(dirname(__DIR__) . '/models/Model.php');
+require_once(dirname(__DIR__) . '/models/Model.php');
 require_once(dirname(__DIR__) . '/models/Database.php');
 require_once(dirname(__DIR__) . '/models/GetJSON.php');
 
@@ -13,7 +13,6 @@ class Login extends Model
 	private static $username;
 	private static $password;
 	private static $errorMsg = 'false';
-	private static $data;
 	private static $user = array();
 
 
