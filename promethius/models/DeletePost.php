@@ -18,10 +18,10 @@ class DeletePost extends Model
 		$result->bindParam(':title', self::$data['title']);
 
 		if ($result->execute()) {
-			return true;
+			return 'true';
 		}
 		else {
-			return false;
+			return 'false';
 		}
 	}
 

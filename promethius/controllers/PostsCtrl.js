@@ -15,8 +15,16 @@ app.controller('PostsCtrl', function ($scope, $http, $location, status)
 		$location.path('/posts/new');
 	};
 
-	$scope.delete = function () {
-		console.log('DELETE?');
+	$scope.delete = function (id) {
+		$http({
+			url: 'models/DeletePost.php',
+			method: 'POST',
+			data: 'JSON=' + JSON.stringify({ id: id }),
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+		})
+		.then(function (response) {
+			console.log(response);
+		});
 	};
 
 
@@ -24,7 +32,7 @@ app.controller('PostsCtrl', function ($scope, $http, $location, status)
 		url: 'models/GetPost.php',
 		method: 'POST',
 		data: 'JSON=' + JSON.stringify(data),
-		headers:{ 'Content-Type': 'application/x-www-form-urlencoded' }
+		headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 	})
 	.then(function (response) {
 		$scope.posts = response.data;
