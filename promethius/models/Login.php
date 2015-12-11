@@ -2,7 +2,6 @@
 
 require_once(dirname(__DIR__) . '/models/Model.php');
 require_once(dirname(__DIR__) . '/models/Database.php');
-require_once(dirname(__DIR__) . '/models/GetJSON.php');
 
 session_start();
 
@@ -10,35 +9,9 @@ session_start();
 class Login extends Model
 {
 	private static $query = 'SELECT id, username, first_name, last_name, hash FROM users WHERE username=:username';
-	private static $username;
-	private static $password;
-	private static $errorMsg = 'false';
+	private static $result;
 	private static $user = array();
 
-
-	private static function main() {
-		$result = Database::$conn->prepare(self::$query);
-		
-		self::$username = self::$data['username'];
-		self::$password = self::$data['password'];
-		
-		// check if query is successful
-		if ($result->execute(array(':username' => self::$username))) {
-			self::$user = $result->fetchAll(PDO::FETCH_ASSOC)[0];
-			$hash = self::$user['hash'];
-
-			// check if password matches
-			if (password_verify(self::$password, $hash)) {
-				return self::storeSession();
-			}
-			else {
-				return false;
-			}
-		}
-		else {
-			return false;
-		}
-	}
 
 	private static function storeSession() {
 		$_SESSION['user'] = array();
@@ -50,21 +23,28 @@ class Login extends Model
 		return true;
 	}
 
+	private static function login() {
+		self::$user = self::$result->fetchAll(PDO::FETCH_ASSOC)[0];
 
-	public static function logout($json) {
-		session_unset();
-		session_destroy();
-		
-		return true;
+		// check if password matches
+		if (password_verify(self::$data['password'], self::$user['hash'])) {
+			return self::storeSession();
+		}
+		else {
+			return false;
+		}
 	}
 
-	public static function init() {
-		if (GetJSON::isPost() && GetJSON::decodePost()['command'] == 'login') {
-			self::$data = GetJSON::decodePost();
-			echo json_encode(self::main());
+
+	protected static function main() {
+		self::$result = Database::$conn->prepare(self::$query);
+		
+		// check if query is successful
+		if (self::$result->execute(array(':username' => self::$data['username']))) {
+			self::login();
 		}
-		else if (GetJSON::isPost() && GetJSON::decodePost()['command'] == 'logout') {
-			echo json_encode(self::logout());
+		else {
+			return false;
 		}
 	}
 }
