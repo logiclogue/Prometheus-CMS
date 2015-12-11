@@ -7,7 +7,7 @@ session_start();
 
 class Logout extends Model
 {
-	public static function main() {
+	protected static function main() {
 		session_unset();
 		session_destroy();
 

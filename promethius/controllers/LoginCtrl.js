@@ -12,7 +12,6 @@ app.controller('LoginCtrl', function ($scope, $http, $location, status)
 
 	$scope.submit = function () {
 		data = {
-			command: 'login',
 			username: $scope.username,
 			password: $scope.password
 		}

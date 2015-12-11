@@ -29,6 +29,18 @@ app.controller('PostsCtrl', function ($scope, $http, $location, $route, status)
 		$route.reload();
 	};
 
+	$scope.logout = function () {
+		$http({
+			url: 'models/Logout.php',
+			method: 'POST',
+			data: 'JSON=',
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+		})
+		.then(function (response) {
+			$route.reload();
+		});
+	};
+
 
 	$http({
 		url: 'models/GetPost.php',

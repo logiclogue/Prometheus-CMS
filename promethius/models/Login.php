@@ -23,7 +23,7 @@ class Login extends Model
 		return true;
 	}
 
-	private static function login() {
+	private static function verify() {
 		self::$user = self::$result->fetchAll(PDO::FETCH_ASSOC)[0];
 
 		// check if password matches
@@ -38,10 +38,12 @@ class Login extends Model
 
 	protected static function main() {
 		self::$result = Database::$conn->prepare(self::$query);
+
+		self::$result->bindParam(':username', self::$data['username']);
 		
 		// check if query is successful
-		if (self::$result->execute(array(':username' => self::$data['username']))) {
-			self::login();
+		if (self::$result->execute()) {
+			return self::verify();
 		}
 		else {
 			return false;
