@@ -29,7 +29,7 @@ class CreatePost extends Model
 	protected static function main() {
 		// check to see if user is logged in before creating post
 		if (isset($_SESSION['user']['id'])) {
-			self::create();
+			return self::create();
 		}
 		else {
 			return false;

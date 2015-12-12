@@ -28,7 +28,7 @@ class DeletePost extends Model
 	protected static function main() {
 		// check to see if the user is logged in before deleting a post
 		if (isset($_SESSION['user']['id'])) {
-			self::delete();
+			return self::delete();
 		}
 		else {
 			return false;
