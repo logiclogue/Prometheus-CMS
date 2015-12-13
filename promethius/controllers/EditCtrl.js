@@ -38,7 +38,6 @@ app.controller('EditCtrl', function ($scope, $http, $location, $routeParams, sta
 		data.title = $scope.title;
 		data.content = $scope.content;
 		data.date = '0000-00-00';
-		console.log(data);
 
 		$http({
 			url: 'models/CreatePost.php',
@@ -47,7 +46,9 @@ app.controller('EditCtrl', function ($scope, $http, $location, $routeParams, sta
 			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 		})
 		.then(function (response) {
-			console.log(response.data);
+			if (response.data) {
+				$location.path('/posts');
+			}
 		});
 	};
 
