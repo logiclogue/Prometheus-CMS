@@ -8,7 +8,7 @@
 	<script src="lib/angular.min.js"></script>
 	<script src="lib/angular-route.min.js"></script>
 	<script src="js/app.js"></script>
-	<script src="controllers/status.js"></script>
+	<script src="controllers/util.js"></script>
 	<script src="controllers/LoginCtrl.js"></script>
 	<script src="controllers/ContentCtrl.js"></script>
 	<script src="controllers/PostsCtrl.js"></script>

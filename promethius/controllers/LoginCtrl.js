@@ -1,4 +1,4 @@
-app.controller('LoginCtrl', function ($scope, $http, $location, status)
+app.controller('LoginCtrl', function ($scope, $http, $location, util)
 {
 	var data = {};
 
@@ -27,7 +27,7 @@ app.controller('LoginCtrl', function ($scope, $http, $location, status)
 		});
 	};
 
-	status.get(function (response) {
+	util.status(function (response) {
 		checkLoggedIn(response.logged_in);
 	});
 });

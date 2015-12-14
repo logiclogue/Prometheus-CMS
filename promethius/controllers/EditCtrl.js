@@ -1,24 +1,18 @@
-app.controller('EditCtrl', function ($scope, $http, $location, $routeParams, status)
+app.controller('EditCtrl', function ($scope, $http, $location, $routeParams, util)
 {
 	var data = {
 		id: parseInt($routeParams.param)
 	};
 
 
-	status.get(function (response) {
+	util.status(function (response) {
 		if (!response.logged_in) {
 			$location.path('/login');
 		}
 	});
 
 	function getPost() {
-		$http({
-			url: 'models/GetPost.php',
-			method: 'POST',
-			data: 'JSON=' + JSON.stringify(data),
-			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-		})
-		.then(function (response) {
+		util.fetch('models/GetPost.php', data, function (response) {
 			// redirect if post doesn't exist
 			if (response.data.length === 0) {
 				$location.path('/posts');

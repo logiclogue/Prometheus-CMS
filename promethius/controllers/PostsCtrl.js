@@ -1,10 +1,10 @@
-app.controller('PostsCtrl', function ($scope, $http, $location, $route, status)
+app.controller('PostsCtrl', function ($scope, $http, $location, $route, util)
 {
 	var data = {
 		title: null
 	};
 
-	status.get(function (response) {
+	util.status(function (response) {
 		if (!response.logged_in) {
 			$location.path('/login');
 		}

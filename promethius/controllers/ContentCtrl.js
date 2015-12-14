@@ -1,4 +1,4 @@
-app.controller('ContentCtrl', function ($scope, $sce, $http, status)
+app.controller('ContentCtrl', function ($scope, $sce, $http, util)
 {
 	var data = {
 		title: 'Test Title',
@@ -21,7 +21,7 @@ app.controller('ContentCtrl', function ($scope, $sce, $http, status)
 		$scope.date = response.data.date;
 	});
 
-	status.get(function (response) {
+	util.status(function (response) {
 		$scope.isLoggedIn = JSON.parse(response.logged_in);
 	});
 
