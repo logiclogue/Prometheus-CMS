@@ -16,13 +16,7 @@ app.controller('PostsCtrl', function ($scope, $http, $location, $route, util)
 	};
 
 	$scope.delete = function (id) {
-		$http({
-			url: 'models/DeletePost.php',
-			method: 'POST',
-			data: 'JSON=' + JSON.stringify({ id: id }),
-			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-		})
-		.then(function (response) {
+		util.fetch('models/DeletePost.php', { id: id }, function (response) {
 			console.log(response);
 		});
 
@@ -30,25 +24,13 @@ app.controller('PostsCtrl', function ($scope, $http, $location, $route, util)
 	};
 
 	$scope.logout = function () {
-		$http({
-			url: 'models/Logout.php',
-			method: 'POST',
-			data: 'JSON=',
-			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-		})
-		.then(function (response) {
+		util.fetch('models/Logout.php', '', function () {
 			$route.reload();
 		});
 	};
 
 
-	$http({
-		url: 'models/GetPost.php',
-		method: 'POST',
-		data: 'JSON=' + JSON.stringify(data),
-		headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-	})
-	.then(function (response) {
+	util.fetch('models/GetPost.php', data, function (response) {
 		$scope.posts = response.data;
 	});
 });

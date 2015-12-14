@@ -1,4 +1,5 @@
-app.factory('util', function ($http) {
+app.factory('util', function ($http)
+{
 	return {
 		status: function (callback) {
 			$http({
@@ -9,6 +10,7 @@ app.factory('util', function ($http) {
 				callback(response.data);
 			});
 		},
+		
 		fetch: function (url, data, callback) {
 			$http({
 				url: url,

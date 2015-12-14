@@ -16,13 +16,7 @@ app.controller('LoginCtrl', function ($scope, $http, $location, util)
 			password: $scope.password
 		}
 
-		$http({
-			url: 'models/Login.php',
-			method: 'POST',
-			data: 'JSON=' + JSON.stringify(data),
-			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-		})
-		.then(function (response) {
+		util.fetch('models/Login.php', data, function (response) {
 			checkLoggedIn(response.data);
 		});
 	};

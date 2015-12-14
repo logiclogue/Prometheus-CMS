@@ -33,13 +33,7 @@ app.controller('EditCtrl', function ($scope, $http, $location, $routeParams, uti
 		data.content = $scope.content;
 		data.date = '0000-00-00';
 
-		$http({
-			url: 'models/CreatePost.php',
-			method: 'POST',
-			data: 'JSON=' + JSON.stringify(data),
-			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-		})
-		.then(function (response) {
+		util.fetch('models/CreatePost.php', data, function (response) {
 			if (response.data) {
 				$location.path('/posts');
 			}
