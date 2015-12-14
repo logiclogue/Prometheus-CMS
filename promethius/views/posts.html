@@ -1,7 +1,7 @@
 <div id="page-posts" class="container">
 
-	<button ng-click="button_CreatePost()">Create post</button>
-	<button ng-click="button_Logout()">Logout</button>
+	<button ng-click="createPost()">Create post</button>
+	<button ng-click="logout()">Logout</button>
 
 	<table>
 		<tbody>
@@ -10,7 +10,7 @@
 					<a href="#/posts/{{x.id}}">{{ x.title }}</a>
 				</td>
 				<td>
-					<a ng-click="button_Delete(x.id)">Delete</a>
+					<a ng-click="delete(x.id)">Delete</a>
 				</td>
 			</tr>
 		</tbody>

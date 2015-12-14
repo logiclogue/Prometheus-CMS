@@ -5,11 +5,10 @@ app.controller('EditCtrl', function ($scope, $http, $location, $routeParams, uti
 	};
 
 
-	util.status(function (response) {
-		if (!response.logged_in) {
-			$location.path('/login');
-		}
+	util.notLoggedIn(function () {
+		$location.path('/login');
 	});
+	
 
 	function getPost() {
 		util.fetch('models/GetPost.php', data, function (response) {

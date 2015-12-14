@@ -9,17 +9,17 @@ app.controller('PostsCtrl', function ($scope, $http, $location, $route, util)
 	});
 
 
-	$scope.button_CreatePost = function () {
+	$scope.createPost = function () {
 		$location.path('/posts/new');
 	};
 
-	$scope.button_Logout = function () {
+	$scope.logout = function () {
 		util.fetch('models/Logout.php', '', function () {
 			$route.reload();
 		});
 	};
 
-	$scope.button_Delete = function (id) {
+	$scope.delete = function (id) {
 		util.fetch('models/DeletePost.php', { id: id }, function (response) {
 			$route.reload();
 		});

@@ -1,7 +1,7 @@
 <div id="page-content">
-	<button ng-click="logout()" ng-show="isLoggedIn">Logout</button>
-
-	<h1 id="h1-title" ng-bind="title"></h1>
-	<div id="div-content" ng-bind-html="content"></div>
-	<small id="small-date" ng-bind="date"></small>
+	<div ng-repeat="x in posts">
+		<h1 id="h1-title" ng-bind="x.title"></h1>
+		<div id="div-content" ng-bind-html="x.content"></div>
+		<small id="small-date" ng-bind="x.date"></small>
+	</div>
 </div>
