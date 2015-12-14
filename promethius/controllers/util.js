@@ -1,4 +1,4 @@
-app.factory('util', function ($http)
+app.factory('util', function ($http, $location)
 {
 	return {
 		status: function (callback) {
@@ -8,6 +8,14 @@ app.factory('util', function ($http)
 			})
 			.then(function (response) {
 				callback(response.data);
+			});
+		},
+
+		notLoggedIn: function (callback) {
+			this.status(function (response) {
+				if (!response.logged_in) {
+					callback();
+				}
 			});
 		},
 		

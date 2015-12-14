@@ -4,27 +4,23 @@ app.controller('PostsCtrl', function ($scope, $http, $location, $route, util)
 		title: null
 	};
 
-	util.status(function (response) {
-		if (!response.logged_in) {
-			$location.path('/login');
-		}
+	util.notLoggedIn(function () {
+		$location.path('/login');
 	});
 
 
-	$scope.createPost = function () {
+	$scope.button_CreatePost = function () {
 		$location.path('/posts/new');
 	};
 
-	$scope.delete = function (id) {
-		util.fetch('models/DeletePost.php', { id: id }, function (response) {
-			console.log(response);
+	$scope.button_Logout = function () {
+		util.fetch('models/Logout.php', '', function () {
+			$route.reload();
 		});
-
-		$route.reload();
 	};
 
-	$scope.logout = function () {
-		util.fetch('models/Logout.php', '', function () {
+	$scope.button_Delete = function (id) {
+		util.fetch('models/DeletePost.php', { id: id }, function (response) {
 			$route.reload();
 		});
 	};
