@@ -4,6 +4,7 @@
 
 	<textarea class="u-full-width" ng-model="content"></textarea>
 
-	<button ng-click="update()">Update</button>
+	<button ng-hide="isCreate" ng-click="update()">Update</button>
+	<button ng-show="isCreate" ng-click="create()">Create</button>
 
 </div>
