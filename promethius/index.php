@@ -7,12 +7,7 @@
 
 	<script src="lib/angular.min.js"></script>
 	<script src="lib/angular-route.min.js"></script>
-	<script src="js/app.js"></script>
-	<script src="controllers/util.js"></script>
-	<script src="controllers/LoginCtrl.js"></script>
-	<script src="controllers/ContentCtrl.js"></script>
-	<script src="controllers/PostsCtrl.js"></script>
-	<script src="controllers/EditCtrl.js"></script>
+	<script src="build/all.js"></script>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
