@@ -5,29 +5,29 @@ app.controller('EditCtrl', function ($scope, $http, $location, $routeParams, uti
 	};
 
 
-	util.status(function (response) {
-		if (!response.logged_in) {
-			$location.path('/login');
-		}
+	util.notLoggedIn(function () {
+		$location.path('/login');
 	});
+
 
 	function getPost() {
 		util.fetch('models/GetPost.php', data, function (response) {
 			// redirect if post doesn't exist
 			if (response.data.length === 0) {
-				$location.path('/posts');
 				alert("Post doesn't exit");
+				$location.path('/posts');
 
 				return;
 			}
 
+			// else populate the fields
 			$scope.title = response.data[0].title;
 			$scope.content = response.data[0].content;
 		});
 	};
 
 
-	$scope.update = function () {
+	$scope.create = function () {
 		data.id = null;
 		data.title = $scope.title;
 		data.content = $scope.content;
@@ -40,12 +40,29 @@ app.controller('EditCtrl', function ($scope, $http, $location, $routeParams, uti
 		});
 	};
 
+	$scope.update = function () {
+		data.title = $scope.title;
+		data.content = $scope.content;
+
+		util.fetch('models/UpdatePost.php', data, function (response) {
+			if (response.data) {
+				alert('Update successfully');
+			}
+			else {
+				alert('Failed to update');
+			}
+		});
+	};
+
 
 	(function () {
 		if ($routeParams.param === 'new') {
-			
+			$scope.isCreate = true;
 		}
 		else {
+			$scope.isCreate = false;
+
+			// load the post
 			getPost();
 		}
 	}());
