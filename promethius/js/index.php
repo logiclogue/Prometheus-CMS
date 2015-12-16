@@ -9,8 +9,14 @@
 	<script src="lib/angular-route.min.js"></script>
 
 	<!-- inject:js -->
-	<script src="build/all.js"></script>
+	<script src="/promethius/js/app.js"></script>
+	<script src="/promethius/controllers/ContentCtrl.js"></script>
+	<script src="/promethius/controllers/EditCtrl.js"></script>
+	<script src="/promethius/controllers/LoginCtrl.js"></script>
+	<script src="/promethius/controllers/PostsCtrl.js"></script>
+	<script src="/promethius/controllers/util.js"></script>
 	<!-- endinject -->
+	<script src="build/all.js"></script>
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
