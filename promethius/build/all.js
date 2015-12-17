@@ -31,38 +31,16 @@ app.config(['$routeProvider', function ($routeProvider)
 app.controller('ContentCtrl', function ($scope, $sce, $http, util)
 {
 	var data = {
-		title: 'Test Title',
 		format: 'HTML'
 	};
 
-	$scope.isLoggedIn = false;
-
-
-	util.status(function (response) {
-		$scope.isLoggedIn = JSON.parse(response.logged_in);
-	});
-
 	util.fetch('models/GetPost.php', data, function (response) {
-		response.data = response.data[0];
+		$scope.posts = response.data;
 		
-		$scope.title = response.data.title;
-		$scope.content = $sce.trustAsHtml(response.data.content);
-		$scope.date = response.data.date;
-	});
-
-
-	$scope.logout = function () {
-		var data = {
-			command: 'logout'
-		}
-
-		$http({
-			url: 'models/Login.php',
-			method: 'POST',
-			data: 'JSON=' + JSON.stringify(data),
-			headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+		$scope.posts.forEach(function (i) {
+			i.content = $sce.trustAsHtml(i.content);
 		});
-	};
+	});
 });
 app.controller('EditCtrl', function ($scope, $http, $location, $routeParams, util)
 {
@@ -71,29 +49,29 @@ app.controller('EditCtrl', function ($scope, $http, $location, $routeParams, uti
 	};
 
 
-	util.status(function (response) {
-		if (!response.logged_in) {
-			$location.path('/login');
-		}
+	util.notLoggedIn(function () {
+		$location.path('/login');
 	});
+
 
 	function getPost() {
 		util.fetch('models/GetPost.php', data, function (response) {
 			// redirect if post doesn't exist
 			if (response.data.length === 0) {
-				$location.path('/posts');
 				alert("Post doesn't exit");
+				$location.path('/posts');
 
 				return;
 			}
 
+			// else populate the fields
 			$scope.title = response.data[0].title;
 			$scope.content = response.data[0].content;
 		});
 	};
 
 
-	$scope.update = function () {
+	$scope.create = function () {
 		data.id = null;
 		data.title = $scope.title;
 		data.content = $scope.content;
@@ -106,12 +84,29 @@ app.controller('EditCtrl', function ($scope, $http, $location, $routeParams, uti
 		});
 	};
 
+	$scope.update = function () {
+		data.title = $scope.title;
+		data.content = $scope.content;
+
+		util.fetch('models/UpdatePost.php', data, function (response) {
+			if (response.data) {
+				alert('Update successfully');
+			}
+			else {
+				alert('Failed to update');
+			}
+		});
+	};
+
 
 	(function () {
 		if ($routeParams.param === 'new') {
-			
+			$scope.isCreate = true;
 		}
 		else {
+			$scope.isCreate = false;
+
+			// load the post
 			getPost();
 		}
 	}());
@@ -149,10 +144,8 @@ app.controller('PostsCtrl', function ($scope, $http, $location, $route, util)
 		title: null
 	};
 
-	util.status(function (response) {
-		if (!response.logged_in) {
-			$location.path('/login');
-		}
+	util.notLoggedIn(function () {
+		$location.path('/login');
 	});
 
 
@@ -160,16 +153,14 @@ app.controller('PostsCtrl', function ($scope, $http, $location, $route, util)
 		$location.path('/posts/new');
 	};
 
-	$scope.delete = function (id) {
-		util.fetch('models/DeletePost.php', { id: id }, function (response) {
-			console.log(response);
-		});
-
-		$route.reload();
-	};
-
 	$scope.logout = function () {
 		util.fetch('models/Logout.php', '', function () {
+			$route.reload();
+		});
+	};
+
+	$scope.delete = function (id) {
+		util.fetch('models/DeletePost.php', { id: id }, function (response) {
 			$route.reload();
 		});
 	};
@@ -179,7 +170,7 @@ app.controller('PostsCtrl', function ($scope, $http, $location, $route, util)
 		$scope.posts = response.data;
 	});
 });
-app.factory('util', function ($http)
+app.factory('util', function ($http, $location)
 {
 	return {
 		status: function (callback) {
@@ -189,6 +180,14 @@ app.factory('util', function ($http)
 			})
 			.then(function (response) {
 				callback(response.data);
+			});
+		},
+
+		notLoggedIn: function (callback) {
+			this.status(function (response) {
+				if (!response.logged_in) {
+					callback();
+				}
 			});
 		},
 		

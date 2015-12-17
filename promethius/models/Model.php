@@ -1,6 +1,6 @@
 <?php
 
-require_once(dirname(__DIR__) . '/models/GetJSON.php');
+require_once(dirname(__DIR__) . '/functions/GetJSON.php');
 
 
 class Model

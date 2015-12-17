@@ -1,7 +1,7 @@
 <?php
 
 require_once(dirname(__DIR__) . '/models/Model.php');
-require_once(dirname(__DIR__) . '/models/Database.php');
+require_once(dirname(__DIR__) . '/functions/Database.php');
 
 session_start();
 

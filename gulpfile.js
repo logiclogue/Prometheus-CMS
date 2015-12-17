@@ -1,13 +1,14 @@
 var gulp = require('gulp'),
 	concat = require('gulp-concat'),
-	inject = require('gulp-inject');
+	inject = require('gulp-inject'),
+	watch = require('gulp-watch');
 
 
 var dir = {};
 
 (function (self) {
 	self.root = './promethius',
-	self.app = self.root + '/js',
+	self.app = self.root + '/app',
 	self.controllers = self.root + '/controllers',
 	self.build = self.root + '/build'
 }(dir));

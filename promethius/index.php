@@ -9,7 +9,12 @@
 	<script src="lib/angular-route.min.js"></script>
 
 	<!-- inject:js -->
-	<script src="build/all.js"></script>
+	<script src="app/app.js"></script>
+	<script src="app/util.js"></script>
+	<script src="controllers/ContentCtrl.js"></script>
+	<script src="controllers/EditCtrl.js"></script>
+	<script src="controllers/LoginCtrl.js"></script>
+	<script src="controllers/PostsCtrl.js"></script>
 	<!-- endinject -->
 
 	<meta name="viewport" content="width=device-width, initial-scale=1">
