@@ -1,7 +1,7 @@
 app.controller('EditCtrl', function ($scope, $http, $location, $routeParams, util)
 {
 	var data = {
-		id: parseInt($routeParams.param)
+		id: $routeParams.param
 	};
 
 
@@ -26,11 +26,22 @@ app.controller('EditCtrl', function ($scope, $http, $location, $routeParams, uti
 		});
 	};
 
+	function getTags() {
+		var tags = ($scope.tags || '').match(/[A-Z0-9]\w+/g);
+
+		data.tags = tags;
+	};
+
+	function getCommon() {
+		data.title = $scope.title;
+		data.content = ($scope.content || '');
+
+		getTags();
+	};
+
 
 	$scope.create = function () {
-		data.id = null;
-		data.title = $scope.title;
-		data.content = $scope.content;
+		getCommon();
 		data.date = '0000-00-00';
 
 		util.fetch('models/CreatePost.php', data, function (response) {
@@ -41,8 +52,7 @@ app.controller('EditCtrl', function ($scope, $http, $location, $routeParams, uti
 	};
 
 	$scope.update = function () {
-		data.title = $scope.title;
-		data.content = $scope.content;
+		getCommon();
 
 		util.fetch('models/UpdatePost.php', data, function (response) {
 			if (response.data) {
