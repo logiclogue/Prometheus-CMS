@@ -12,32 +12,55 @@ class GetPost extends Model
 		title = CASE WHEN :title IS NULL THEN title ELSE :title END AND
 		id = CASE WHEN :id IS NULL THEN id ELSE :id END
 SQL;
+	private static $result;
+	private static $parsedown;
 
 
-	protected static function main() {
-		$parsedown = new Parsedown();
-		$result = Database::$conn->prepare(self::$query);
+	private static function processContent(&$value) {
+		if (self::$data['format'] == 'HTML') {
+			$value['content'] = self::$parsedown->text($value['content']);
+		}
+	}
 
-		$result->bindParam(':title', self::$data['title']);
-		$result->bindParam(':id', self::$data['id']);
-
-		if ($result->execute()) {
-			$result = $result->fetchAll(PDO::FETCH_ASSOC);
+	private static function querySuccess() {
+		self::$result = self::$result->fetchAll(PDO::FETCH_ASSOC);
 			
-			foreach ($result as &$value) {
-				if (self::$data['format'] == 'HTML') {
-					$value['content'] = $parsedown->text($value['content']);
-				}
-			}
+		foreach (self::$result as &$value) {
+			self::processContent($value);
+		}
+	}
 
-			return $result;
+	private static function executeQuery() {
+		if (self::$result->execute()) {
+			self::querySuccess();
+
+			return self::$result;
 		}
 		else {
 			return false;
 		}
 	}
+
+	private static function bindParams() {
+		self::$result->bindParam(':title', self::$data['title']);
+		self::$result->bindParam(':id', self::$data['id']);
+	}
+
+	private static function prep() {
+		self::$parsedown = new Parsedown();
+		self::$result = Database::$conn->prepare(self::$query);
+	}
+
+
+	protected static function main() {
+		self::prep();
+		self::bindParams();		
+
+		return self::executeQuery();
+	}
 }
 
 GetPost::init();
+GetPost::call(array('format' => 'HTML'));
 
 ?>
