@@ -8,7 +8,9 @@ session_start();
 
 class CreatePost extends Model
 {
-	private static $query = 'INSERT INTO posts (title, content, date) VALUES (:title, :content, :date)';
+	private static $query = <<<SQL
+		INSERT INTO posts (title, content, date) VALUES (:title, :content, :date)
+SQL;
 
 
 	private static function create() {
