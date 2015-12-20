@@ -9,15 +9,20 @@ session_start();
 class DeletePost extends Model
 {
 	private static $query = 'DELETE FROM posts WHERE id=:id OR title=:title';
+	private static $result;
 
+
+	private static function bindParams() {
+		self::$result->bindParam(':id', self::$data['id']);
+		self::$result->bindParam(':title', self::$data['title']);
+	}
 
 	private static function delete() {
-		$result = Database::$conn->prepare(self::$query);
+		self::$result = Database::$conn->prepare(self::$query);
 
-		$result->bindParam(':id', self::$data['id']);
-		$result->bindParam(':title', self::$data['title']);
+		self::bindParams();
 
-		if ($result->execute()) {
+		if (self::$result->execute()) {
 			return true;
 		}
 		else {
