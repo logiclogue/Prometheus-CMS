@@ -11,16 +11,21 @@ class CreatePost extends Model
 	private static $query = <<<SQL
 		INSERT INTO posts (title, content, date) VALUES (:title, :content, :date)
 SQL;
+	private static $result;
 
+
+	private static function bindParams() {
+		self::$result->bindParam(':title', self::$data['title']);
+		self::$result->bindParam(':content', self::$data['content']);
+		self::$result->bindParam(':date', self::$data['date']);
+	}
 
 	private static function create() {
-		$result = Database::$conn->prepare(self::$query);
+		self::$result = Database::$conn->prepare(self::$query);
 
-		$result->bindParam(':title', self::$data['title']);
-		$result->bindParam(':content', self::$data['content']);
-		$result->bindParam(':date', self::$data['date']);
+		self::bindParams();
 
-		if ($result->execute()) {
+		if (self::$result->execute()) {
 			return true;
 		}
 		else {
