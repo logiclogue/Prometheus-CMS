@@ -13,12 +13,11 @@ CREATE TABLE IF NOT EXISTS `posts` (
   `content` text NOT NULL,
   `date` date NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=21 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=31 ;
 
 
 INSERT INTO `posts` (`id`, `title`, `content`, `date`) VALUES
-(19, 'Another test', 'This is the content of the post', '0000-00-00'),
-(20, 'Test post', 'Y''know', '0000-00-00');
+(30, 'Test Post', 'Post content.', '0000-00-00');
 
 
 
@@ -35,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `tags` (
   `name` varchar(20) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 
 INSERT INTO `tags` (`id`, `name`) VALUES

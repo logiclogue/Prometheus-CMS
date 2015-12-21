@@ -4,6 +4,8 @@ app.controller('EditCtrl', function ($scope, $http, $location, $routeParams, uti
 		id: $routeParams.param
 	};
 
+	$scope.isLoading = false;
+
 
 	util.notLoggedIn(function () {
 		$location.path('/login');
@@ -27,12 +29,14 @@ app.controller('EditCtrl', function ($scope, $http, $location, $routeParams, uti
 	};
 
 	function getTags() {
-		var tags = ($scope.tags || '').match(/[A-Z0-9]\w+/g);
+		var tags = ($scope.tags || '').match(/\w+/g);
 
 		data.tags = tags;
 	};
 
 	function getCommon() {
+		$scope.isLoading = true;
+
 		data.title = $scope.title;
 		data.content = ($scope.content || '');
 
@@ -61,6 +65,8 @@ app.controller('EditCtrl', function ($scope, $http, $location, $routeParams, uti
 			else {
 				alert('Failed to update');
 			}
+
+			$scope.isLoading = false;
 		});
 	};
 

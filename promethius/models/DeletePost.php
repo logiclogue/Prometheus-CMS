@@ -8,7 +8,11 @@ session_start();
 
 class DeletePost extends Model
 {
-	private static $query = 'DELETE FROM posts WHERE id=:id OR title=:title';
+	private static $query = <<<SQL
+		DELETE FROM posts
+		WHERE id=:id OR title=:title
+SQL;
+
 	private static $result;
 
 

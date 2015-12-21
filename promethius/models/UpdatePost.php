@@ -13,16 +13,21 @@ class UpdatePost extends Model
 		SET title=:title, content=:content
 		WHERE id=:id
 SQL;
+	private static $result;
 
+
+	private static function bindParams() {
+		self::$result->bindParam(':id', self::$data['id']);
+		self::$result->bindParam(':title', self::$data['title']);
+		self::$result->bindParam(':content', self::$data['content']);
+	}
 
 	private static function update() {
-		$result = Database::$conn->prepare(self::$query);
+		self::$result = Database::$conn->prepare(self::$query);
 
-		$result->bindParam(':id', self::$data['id']);
-		$result->bindParam(':title', self::$data['title']);
-		$result->bindParam(':content', self::$data['content']);
+		self::bindParams();
 
-		if ($result->execute()) {
+		if (self::$result->execute()) {
 			return true;
 		}
 		else {
