@@ -13,9 +13,8 @@ class CreatePost extends Model
 SQL;
 
 	private static $query_create_tag = <<<SQL
-		INSERT INTO tags (name)
+		REPLACE INTO tags (name)
 		VALUES (:name)
-		ON DUPLICATE KEY UPDATE id=id;
 SQL;
 
 	private static $query_join_tag = <<<SQL
