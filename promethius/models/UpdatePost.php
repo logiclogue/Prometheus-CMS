@@ -13,6 +13,7 @@ class UpdatePost extends Model
 		SET title=:title, content=:content
 		WHERE id=:id
 SQL;
+
 	private static $result;
 
 
