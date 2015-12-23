@@ -8,11 +8,17 @@ require_once(dirname(__DIR__) . '/lib/Parsedown.php');
 class GetPost extends Model
 {
 	private static $query = <<<SQL
-		SELECT *
+		SELECT posts.*
 		FROM posts
+		INNER JOIN post_tag_maps
+		ON post_tag_maps.post_id = posts.id
+		INNER JOIN tags
+		ON post_tag_maps.tag_id = tags.id
 		WHERE
-		title = CASE WHEN :title IS NULL THEN title ELSE :title END AND
-		id = CASE WHEN :id IS NULL THEN id ELSE :id END
+		posts.title = CASE WHEN :title IS NULL THEN posts.title ELSE :title END AND
+		posts.id = CASE WHEN :id IS NULL THEN posts.id ELSE :id END AND
+		tags.name = CASE WHEN :tag IS NULL THEN tags.name ELSE :tag END
+		GROUP BY posts.id
 SQL;
 
 	private static $query_tags = <<<SQL
@@ -50,7 +56,7 @@ SQL;
 		self::$result = self::$result->fetchAll(PDO::FETCH_ASSOC);
 			
 		foreach (self::$result as &$value) {
-			// populate the tags field with the tag names.
+			// populate the tags field with an array of the tag names.
 			$value['tags'] = self::getTags($value['id']);
 
 			// convert the content to HTML or keep as markdown
@@ -72,6 +78,7 @@ SQL;
 	private static function bindParams() {
 		self::$result->bindParam(':title', self::$data['title']);
 		self::$result->bindParam(':id', self::$data['id']);
+		self::$result->bindParam(':tag', self::$data['tag']);
 	}
 
 	private static function prep() {
