@@ -25,13 +25,13 @@ app.controller('EditCtrl', function ($scope, $http, $location, $routeParams, uti
 			// else populate the fields
 			$scope.title = response.data[0].title;
 			$scope.content = response.data[0].content;
+			$scope.tags = JSON.stringify(response.data[0].tags).replace(/"|\[|\]/g, '');
+			$scope.tags = $scope.tags.replace(/,/g, ', ');
 		});
 	};
 
 	function getTags() {
-		var tags = ($scope.tags || '').match(/\w+/g);
-
-		data.tags = tags;
+		return ($scope.tags || '').match(/\w+/g);
 	};
 
 	function getCommon() {
@@ -39,8 +39,7 @@ app.controller('EditCtrl', function ($scope, $http, $location, $routeParams, uti
 
 		data.title = $scope.title;
 		data.content = ($scope.content || '');
-
-		getTags();
+		data.tags = getTags();
 	};
 
 

@@ -10,14 +10,17 @@ class GetPost extends Model
 	private static $query = <<<SQL
 		SELECT posts.*
 		FROM posts
-		INNER JOIN post_tag_maps
+		LEFT JOIN post_tag_maps
 		ON post_tag_maps.post_id = posts.id
-		INNER JOIN tags
+		LEFT JOIN tags
 		ON post_tag_maps.tag_id = tags.id
 		WHERE
 		posts.title = CASE WHEN :title IS NULL THEN posts.title ELSE :title END AND
 		posts.id = CASE WHEN :id IS NULL THEN posts.id ELSE :id END AND
-		tags.name = CASE WHEN :tag IS NULL THEN tags.name ELSE :tag END
+		CASE WHEN :tag IS NULL
+		THEN posts.id = posts.id
+		ELSE tags.name = :tag
+		END
 		GROUP BY posts.id
 SQL;
 

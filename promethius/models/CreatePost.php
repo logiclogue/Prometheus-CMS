@@ -1,28 +1,14 @@
 <?php
 
-require_once(dirname(__DIR__) . '/models/Model.php');
-require_once(dirname(__DIR__) . '/functions/Database.php');
+require_once(dirname(__DIR__) . '/models/Post.php');
 
 session_start();
 
 
-class CreatePost extends Model
+class CreatePost extends Post
 {
 	private static $query = <<<SQL
 		INSERT INTO posts (title, content, date) VALUES (:title, :content, :date)
-SQL;
-
-	private static $query_create_tag = <<<SQL
-		INSERT INTO tags (name)
-		SELECT * FROM (SELECT :name) AS tag_name
-		WHERE NOT EXISTS (
-			SELECT name FROM tags WHERE name = :name
-		) LIMIT 1
-SQL;
-
-	private static $query_join_tag = <<<SQL
-		INSERT INTO post_tag_maps (post_id, tag_id)
-		VALUES (:id, (SELECT id FROM tags WHERE name=:name))
 SQL;
 
 	private static $result;

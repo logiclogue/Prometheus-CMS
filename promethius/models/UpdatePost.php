@@ -1,12 +1,11 @@
 <?php
 
-require_once(dirname(__DIR__) . '/models/Model.php');
-require_once(dirname(__DIR__) . '/functions/Database.php');
+require_once(dirname(__DIR__) . '/models/Post.php');
 
 session_start();
 
 
-class UpdatePost extends Model
+class UpdatePost extends Post
 {
 	private static $query = <<<SQL
 		UPDATE posts
@@ -14,8 +13,35 @@ class UpdatePost extends Model
 		WHERE id=:id
 SQL;
 
+	private static $query_delete_tags = <<<SQL
+		DELETE post_tag_maps.*
+		FROM post_tag_maps
+		INNER JOIN tags
+		ON post_tag_maps.tag_id = tags.id
+		WHERE post_tag_maps.post_id = :id
+SQL;
+
 	private static $result;
 
+
+	private static function createTags() {
+		$lastId = Database::$conn->lastInsertId();
+
+		$result_delete_tags = Database::$conn->prepare(self::$query_delete_tags);
+
+		$result_delete_tags->bindParam(':id', self::$data['id']);
+
+		if ($result_delete_tags->execute()) {
+			return true;
+		}
+		else {
+			return false;
+		}
+
+		/*foreach (self::$data['tags'] as &$tag) {
+			$tag = strtolower($tag);
+		}*/
+	}
 
 	private static function bindParams() {
 		self::$result->bindParam(':id', self::$data['id']);
@@ -29,7 +55,7 @@ SQL;
 		self::bindParams();
 
 		if (self::$result->execute()) {
-			return true;
+			return self::createTags();
 		}
 		else {
 			return false;
