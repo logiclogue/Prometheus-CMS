@@ -9,9 +9,13 @@ session_start();
 class DeletePost extends Model
 {
 	private static $query = <<<SQL
-		DELETE posts.*, post_tag_maps.* FROM posts
-		INNER JOIN post_tag_maps ON post_tag_maps.post_id=posts.id
-		WHERE posts.id=:id OR posts.title=:title
+		DELETE posts.*, post_tag_maps.*
+		FROM posts
+		LEFT JOIN post_tag_maps
+		ON post_tag_maps.post_id = posts.id
+		WHERE
+		posts.id=:id OR
+		posts.title=:title
 SQL;
 
 	private static $result;
