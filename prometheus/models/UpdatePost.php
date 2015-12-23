@@ -25,22 +25,35 @@ SQL;
 
 
 	private static function createTags() {
-		$lastId = Database::$conn->lastInsertId();
+		foreach (self::$data['tags'] as &$tag) {
+			$tag = strtolower($tag);
 
+			$result_create_tag = Database::$conn->prepare(self::$query_create_tag);
+			$result_join_tag = Database::$conn->prepare(self::$query_join_tag);
+
+			$result_create_tag->bindParam(':name', $tag);
+			$result_join_tag->bindParam(':name', $tag);
+			$result_join_tag->bindParam(':id', self::$data['id']);
+
+			if (!$result_create_tag->execute() || !$result_join_tag->execute()) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	private static function deleteTags() {
 		$result_delete_tags = Database::$conn->prepare(self::$query_delete_tags);
 
 		$result_delete_tags->bindParam(':id', self::$data['id']);
 
 		if ($result_delete_tags->execute()) {
-			return true;
+			return self::createTags();
 		}
 		else {
 			return false;
 		}
-
-		/*foreach (self::$data['tags'] as &$tag) {
-			$tag = strtolower($tag);
-		}*/
 	}
 
 	private static function bindParams() {
@@ -55,7 +68,7 @@ SQL;
 		self::bindParams();
 
 		if (self::$result->execute()) {
-			return self::createTags();
+			return self::deleteTags();
 		}
 		else {
 			return false;
