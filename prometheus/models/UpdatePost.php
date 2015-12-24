@@ -21,8 +21,6 @@ SQL;
 		WHERE post_tag_maps.post_id = :id
 SQL;
 
-	private static $result;
-	
 
 	private static function deleteTags() {
 		$result_delete_tags = Database::$conn->prepare(self::$query_delete_tags);
@@ -38,9 +36,8 @@ SQL;
 	}
 
 	private static function bindParams() {
+		self::bindTitleContent();
 		self::$result->bindParam(':id', self::$data['id']);
-		self::$result->bindParam(':title', self::$data['title']);
-		self::$result->bindParam(':content', self::$data['content']);
 	}
 
 	private static function update() {

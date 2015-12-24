@@ -11,12 +11,9 @@ class CreatePost extends Post
 		INSERT INTO posts (title, content, date) VALUES (:title, :content, :date)
 SQL;
 
-	private static $result;
-
 
 	private static function bindParams() {
-		self::$result->bindParam(':title', self::$data['title']);
-		self::$result->bindParam(':content', self::$data['content']);
+		self::bindTitleContent();
 		self::$result->bindParam(':date', self::$data['date']);
 	}
 

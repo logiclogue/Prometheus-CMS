@@ -21,6 +21,8 @@ SQL;
 		VALUES (:id, (SELECT id FROM tags WHERE name=:name))
 SQL;
 
+	protected static $result;
+
 
 	protected static function createTags($post_id) {
 		foreach (self::$data['tags'] as &$tag) {
@@ -39,6 +41,11 @@ SQL;
 		}
 
 		return true;
+	}
+
+	protected static function bindTitleContent() {
+		self::$result->bindParam(':title', self::$data['title']);
+		self::$result->bindParam(':content', self::$data['content']);
 	}
 }
 
