@@ -7,6 +7,7 @@ require_once(dirname(__DIR__) . '/functions/GetJSON.php');
  * Model class, the class is extended by all models. It provides a foundation for all models.
  *
  * @class Model
+ * @static
  */
 
 class Model
