@@ -6,9 +6,26 @@ require_once(dirname(__DIR__) . '/functions/Database.php');
 session_start();
 
 
+/**
+ * Login model for logging in.
+ *
+ * @class
+ * @extends Model
+ * @static
+ */
 class Login extends Model
 {
-	private static $query = 'SELECT id, username, first_name, last_name, hash FROM users WHERE username=:username';
+	/**
+	 * SQL query for getting user data based off username entered.
+	 *
+	 * @property query
+	 * @type String
+	 */
+	private static $query = <<<SQL
+		SELECT id, username, first_name, last_name, hash
+		FROM users
+		WHERE username=:username
+SQL;
 	private static $result;
 	private static $user = array();
 
