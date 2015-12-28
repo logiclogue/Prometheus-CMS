@@ -26,10 +26,28 @@ class Login extends Model
 		FROM users
 		WHERE username=:username
 SQL;
+	/**
+	 * Object for the result of @property query.
+	 *
+	 * @property result
+	 * @type Object
+	 */
 	private static $result;
+	/**
+	 * Database statement for executing @property query.
+	 *
+	 * @property stmt
+	 * @type Object
+	 */
 	private static $stmt;
 
 
+	/**
+	 * Method for adding user details to the user session.
+	 *
+	 * @method storeSession
+	 * @return {Boolean} True.
+	 */
 	private static function storeSession() {
 		$_SESSION['user'] = array();
 		$_SESSION['user']['id'] = self::$result['id'];
@@ -40,6 +58,12 @@ SQL;
 		return true;
 	}
 
+	/**
+	 * Verifies whether entered password matches one associated with the username entered.
+	 *
+	 * @method verify
+	 * @return {Boolean} Whether password is correct.
+	 */
 	private static function verify() {
 		self::$result = self::$stmt->fetchAll(PDO::FETCH_ASSOC)[0];
 
@@ -53,6 +77,13 @@ SQL;
 	}
 
 
+	/**
+	 * Prepares @property stmt.
+	 * Binds username to @property stmt.
+	 *
+	 * @method main
+	 * @return {Boolean} Whether successfully logged in.
+	 */
 	protected static function main() {
 		self::$stmt = Database::$conn->prepare(self::$query);
 
