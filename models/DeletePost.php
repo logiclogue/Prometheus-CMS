@@ -6,8 +6,21 @@ require_once(dirname(__DIR__) . '/functions/Database.php');
 session_start();
 
 
+/**
+ * This model deletes a post.
+ *
+ * @class DeletePost
+ * @extends Model
+ * @static
+ */
 class DeletePost extends Model
 {
+	/**
+	 * SQL query string for deleting a post from the database.
+	 *
+	 * @property query
+	 * @type String
+	 */
 	private static $query = <<<SQL
 		DELETE posts.*, post_tag_maps.*
 		FROM posts
@@ -18,20 +31,25 @@ class DeletePost extends Model
 		posts.title=:title
 SQL;
 
-	private static $result;
+	/**
+	 * The result
+	 *
+	 *
+	 */
+	private static $stmt;
 
 
 	private static function bindParams() {
-		self::$result->bindParam(':id', self::$data['id']);
-		self::$result->bindParam(':title', self::$data['title']);
+		self::$stmt->bindParam(':id', self::$data['id']);
+		self::$stmt->bindParam(':title', self::$data['title']);
 	}
 
 	private static function delete() {
-		self::$result = Database::$conn->prepare(self::$query);
+		self::$stmt = Database::$conn->prepare(self::$query);
 
 		self::bindParams();
 
-		if (self::$result->execute()) {
+		if (self::$stmt->execute()) {
 			return true;
 		}
 		else {

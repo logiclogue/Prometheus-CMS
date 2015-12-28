@@ -23,11 +23,11 @@ SQL;
 
 
 	private static function deleteTags() {
-		$result_delete_tags = Database::$conn->prepare(self::$query_delete_tags);
+		$stmt_delete_tags = Database::$conn->prepare(self::$query_delete_tags);
 
-		$result_delete_tags->bindParam(':id', self::$data['id']);
+		$stmt_delete_tags->bindParam(':id', self::$data['id']);
 
-		if ($result_delete_tags->execute()) {
+		if ($stmt_delete_tags->execute()) {
 			return self::createTags(self::$data['id']);
 		}
 		else {
@@ -37,15 +37,15 @@ SQL;
 
 	private static function bindParams() {
 		self::bindTitleContent();
-		self::$result->bindParam(':id', self::$data['id']);
+		self::$stmt->bindParam(':id', self::$data['id']);
 	}
 
 	private static function update() {
-		self::$result = Database::$conn->prepare(self::$query);
+		self::$stmt = Database::$conn->prepare(self::$query);
 
 		self::bindParams();
 
-		if (self::$result->execute()) {
+		if (self::$stmt->execute()) {
 			return self::deleteTags();
 		}
 		else {

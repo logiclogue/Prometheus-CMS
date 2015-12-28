@@ -21,21 +21,21 @@ SQL;
 		VALUES (:id, (SELECT id FROM tags WHERE name=:name))
 SQL;
 
-	protected static $result;
+	protected static $stmt;
 
 
 	protected static function createTags($post_id) {
 		foreach (self::$data['tags'] as &$tag) {
 			$tag = strtolower($tag);
 
-			$result_create_tag = Database::$conn->prepare(self::$query_create_tag);
-			$result_join_tag = Database::$conn->prepare(self::$query_join_tag);
+			$stmt_create_tag = Database::$conn->prepare(self::$query_create_tag);
+			$stmt_join_tag = Database::$conn->prepare(self::$query_join_tag);
 
-			$result_create_tag->bindParam(':name', $tag);
-			$result_join_tag->bindParam(':name', $tag);
-			$result_join_tag->bindParam(':id', $post_id);
+			$stmt_create_tag->bindParam(':name', $tag);
+			$stmt_join_tag->bindParam(':name', $tag);
+			$stmt_join_tag->bindParam(':id', $post_id);
 
-			if (!$result_create_tag->execute() || !$result_join_tag->execute()) {
+			if (!$stmt_create_tag->execute() || !$stmt_join_tag->execute()) {
 				return false;
 			}
 		}
@@ -44,8 +44,8 @@ SQL;
 	}
 
 	protected static function bindTitleContent() {
-		self::$result->bindParam(':title', self::$data['title']);
-		self::$result->bindParam(':content', self::$data['content']);
+		self::$stmt->bindParam(':title', self::$data['title']);
+		self::$stmt->bindParam(':content', self::$data['content']);
 	}
 }
 

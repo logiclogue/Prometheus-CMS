@@ -36,7 +36,7 @@ SQL;
 	 */
 	private static function bindParams() {
 		self::bindTitleContent();
-		self::$result->bindParam(':date', self::$data['date']);
+		self::$stmt->bindParam(':date', self::$data['date']);
 	}
 
 	/**
@@ -47,11 +47,11 @@ SQL;
 	 * @return {Boolean} Success of post creation.
 	 */
 	private static function create() {
-		self::$result = Database::$conn->prepare(self::$query);
+		self::$stmt = Database::$conn->prepare(self::$query);
 
 		self::bindParams();
 
-		if (self::$result->execute()) {
+		if (self::$stmt->execute()) {
 			return self::createTags(Database::$conn->lastInsertId());
 		}
 		else {

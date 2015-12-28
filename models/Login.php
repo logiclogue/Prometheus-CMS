@@ -27,24 +27,24 @@ class Login extends Model
 		WHERE username=:username
 SQL;
 	private static $result;
-	private static $user = array();
+	private static $stmt;
 
 
 	private static function storeSession() {
 		$_SESSION['user'] = array();
-		$_SESSION['user']['id'] = self::$user['id'];
-		$_SESSION['user']['username'] = self::$user['username'];
-		$_SESSION['user']['first_name'] = self::$user['first_name'];
-		$_SESSION['user']['last_name'] = self::$user['last_name'];
+		$_SESSION['user']['id'] = self::$result['id'];
+		$_SESSION['user']['username'] = self::$result['username'];
+		$_SESSION['user']['first_name'] = self::$result['first_name'];
+		$_SESSION['user']['last_name'] = self::$result['last_name'];
 
 		return true;
 	}
 
 	private static function verify() {
-		self::$user = self::$result->fetchAll(PDO::FETCH_ASSOC)[0];
+		self::$result = self::$stmt->fetchAll(PDO::FETCH_ASSOC)[0];
 
 		// check if password matches
-		if (password_verify(self::$data['password'], self::$user['hash'])) {
+		if (password_verify(self::$data['password'], self::$result['hash'])) {
 			return self::storeSession();
 		}
 		else {
@@ -54,12 +54,12 @@ SQL;
 
 
 	protected static function main() {
-		self::$result = Database::$conn->prepare(self::$query);
+		self::$stmt = Database::$conn->prepare(self::$query);
 
-		self::$result->bindParam(':username', self::$data['username']);
+		self::$stmt->bindParam(':username', self::$data['username']);
 		
 		// check if query is successful
-		if (self::$result->execute()) {
+		if (self::$stmt->execute()) {
 			return self::verify();
 		}
 		else {

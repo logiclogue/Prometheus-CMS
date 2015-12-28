@@ -32,17 +32,17 @@ SQL;
 		WHERE post_tag_maps.post_id = :id
 SQL;
 
-	private static $result;
-	private static $result_tags;
+	private static $stmt;
+	private static $stmt_tags;
 	private static $parsedown;
 
 
 	private static function getTags($id) {
-		self::$result_tags = Database::$conn->prepare(self::$query_tags);
-		self::$result_tags->bindParam(':id', $id);
+		self::$stmt_tags = Database::$conn->prepare(self::$query_tags);
+		self::$stmt_tags->bindParam(':id', $id);
 
-		if (self::$result_tags->execute()) {
-			return self::$result_tags->fetchAll(PDO::FETCH_COLUMN);
+		if (self::$stmt_tags->execute()) {
+			return self::$stmt_tags->fetchAll(PDO::FETCH_COLUMN);
 		}
 		else {
 			return false;
@@ -56,22 +56,22 @@ SQL;
 	}
 
 	private static function querySuccess() {
-		self::$result = self::$result->fetchAll(PDO::FETCH_ASSOC);
+		$result = self::$stmt->fetchAll(PDO::FETCH_ASSOC);
 			
-		foreach (self::$result as &$value) {
+		foreach ($result as &$value) {
 			// populate the tags field with an array of the tag names.
 			$value['tags'] = self::getTags($value['id']);
 
 			// convert the content to HTML or keep as markdown
 			self::processContent($value);
 		}
+
+		return $result;
 	}
 
 	private static function executeQuery() {
-		if (self::$result->execute()) {
-			self::querySuccess();
-
-			return self::$result;
+		if (self::$stmt->execute()) {
+			return self::querySuccess();
 		}
 		else {
 			return false;
@@ -79,14 +79,14 @@ SQL;
 	}
 
 	private static function bindParams() {
-		self::$result->bindParam(':title', self::$data['title']);
-		self::$result->bindParam(':id', self::$data['id']);
-		self::$result->bindParam(':tag', self::$data['tag']);
+		self::$stmt->bindParam(':title', self::$data['title']);
+		self::$stmt->bindParam(':id', self::$data['id']);
+		self::$stmt->bindParam(':tag', self::$data['tag']);
 	}
 
 	private static function prep() {
 		self::$parsedown = new Parsedown();
-		self::$result = Database::$conn->prepare(self::$query);
+		self::$stmt = Database::$conn->prepare(self::$query);
 	}
 
 
