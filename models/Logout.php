@@ -15,7 +15,7 @@ session_start();
 class Logout extends Model
 {
 	/**
-	 * Main method that destroies the session.
+	 * Method that destroys the session.
 	 *
 	 * @method
 	 * @return {Boolean} True.
