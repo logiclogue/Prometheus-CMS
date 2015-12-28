@@ -41,7 +41,7 @@ SQL;
 
 	/**
 	 * General method for creating the post.
-	 * Populates @property result and executes.
+	 * Populates @property stmt and executes.
 	 *
 	 * @method create
 	 * @return {Boolean} Success of post creation.

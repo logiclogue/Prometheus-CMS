@@ -32,18 +32,32 @@ class DeletePost extends Model
 SQL;
 
 	/**
-	 * The result
+	 * The database statement.
+	 * For executing @property query.
 	 *
-	 *
+	 * @property stmt
+	 * @type Object
 	 */
 	private static $stmt;
 
 
+	/**
+	 * Method for binding data to @property query
+	 *
+	 * @method bindParams
+	 */
 	private static function bindParams() {
 		self::$stmt->bindParam(':id', self::$data['id']);
 		self::$stmt->bindParam(':title', self::$data['title']);
 	}
 
+	/**
+	 * Method for preparing the statement.
+	 * Also executes the statement.
+	 *
+	 * @method delete
+	 * @return {Boolean} Whether deleted post successfully.
+	 */
 	private static function delete() {
 		self::$stmt = Database::$conn->prepare(self::$query);
 
@@ -57,6 +71,13 @@ SQL;
 		}
 	}
 
+	/**
+	 * Checks whether user is logged in.
+	 * Calls @method delete.
+	 *
+	 * @method main
+	 * @return {Boolean} Whether successful and logged in.
+	 */
 	protected static function main() {
 		// check to see if the user is logged in before deleting a post
 		if (isset($_SESSION['user']['id'])) {
