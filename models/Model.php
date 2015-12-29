@@ -15,8 +15,9 @@ class Model
 	/**
 	 * The data object is used to store.
 	 *
-	 * @property
+	 * @property data
 	 * @type {Object}
+	 * @protected
 	 */
 	protected static $data = array();
 
@@ -24,7 +25,7 @@ class Model
 	/**
 	 * Call allows PHP to pass data into the model.
 	 *
-	 * @method
+	 * @method call
 	 * @param {Object} Data object to interact with the model
 	 * @return {}
 	 */
@@ -38,7 +39,7 @@ class Model
 	/**
 	 * Function that is called to check if it is called with Post.
 	 *
-	 * @method
+	 * @method init
 	 */
 	public static function init() {
 		if (GetJSON::isPost()) {

@@ -20,6 +20,7 @@ class DeletePost extends Model
 	 *
 	 * @property query
 	 * @type String
+	 * @private
 	 */
 	private static $query = <<<SQL
 		DELETE posts.*, post_tag_maps.*
@@ -37,6 +38,7 @@ SQL;
 	 *
 	 * @property stmt
 	 * @type Object
+	 * @private
 	 */
 	private static $stmt;
 
@@ -45,6 +47,7 @@ SQL;
 	 * Method for binding data to @property query
 	 *
 	 * @method bindParams
+	 * @private
 	 */
 	private static function bindParams() {
 		self::$stmt->bindParam(':id', self::$data['id']);
@@ -56,6 +59,7 @@ SQL;
 	 * Also executes the statement.
 	 *
 	 * @method delete
+	 * @private
 	 * @return {Boolean} Whether deleted post successfully.
 	 */
 	private static function delete() {
@@ -76,6 +80,7 @@ SQL;
 	 * Calls @method delete.
 	 *
 	 * @method main
+	 * @protected
 	 * @return {Boolean} Whether successful and logged in.
 	 */
 	protected static function main() {

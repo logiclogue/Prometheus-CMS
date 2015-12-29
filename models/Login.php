@@ -9,7 +9,7 @@ session_start();
 /**
  * Login model for logging in.
  *
- * @class
+ * @class Login
  * @extends Model
  * @static
  */
@@ -20,6 +20,7 @@ class Login extends Model
 	 *
 	 * @property query
 	 * @type String
+	 * @private
 	 */
 	private static $query = <<<SQL
 		SELECT id, username, first_name, last_name, hash
@@ -31,6 +32,7 @@ SQL;
 	 *
 	 * @property result
 	 * @type Object
+	 * @private
 	 */
 	private static $result;
 	/**
@@ -38,6 +40,7 @@ SQL;
 	 *
 	 * @property stmt
 	 * @type Object
+	 * @private
 	 */
 	private static $stmt;
 
@@ -46,6 +49,7 @@ SQL;
 	 * Method for adding user details to the user session.
 	 *
 	 * @method storeSession
+	 * @private
 	 * @return {Boolean} True.
 	 */
 	private static function storeSession() {
@@ -62,6 +66,7 @@ SQL;
 	 * Verifies whether entered password matches one associated with the username entered.
 	 *
 	 * @method verify
+	 * @private
 	 * @return {Boolean} Whether password is correct.
 	 */
 	private static function verify() {
@@ -82,6 +87,7 @@ SQL;
 	 * Binds username to @property stmt.
 	 *
 	 * @method main
+	 * @protected
 	 * @return {Boolean} Whether successfully logged in.
 	 */
 	protected static function main() {

@@ -8,7 +8,7 @@ session_start();
 /**
  * Logout model when called logs the user out.
  *
- * @class
+ * @class Logout
  * @extends Model
  * @static
  */
@@ -17,7 +17,8 @@ class Logout extends Model
 	/**
 	 * Method that destroys the session.
 	 *
-	 * @method
+	 * @method main
+	 * @protected
 	 * @return {Boolean} True.
 	 */
 	protected static function main() {

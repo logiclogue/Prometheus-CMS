@@ -20,6 +20,7 @@ class CreatePost extends Post
 	 *
 	 * @property query
 	 * @type String
+	 * @private
 	 */
 	private static $query = <<<SQL
 		INSERT INTO posts (title, content, date)
@@ -33,6 +34,7 @@ SQL;
 	 * In addition, this binds date.
 	 *
 	 * @method bindParams
+	 * @private
 	 */
 	private static function bindParams() {
 		self::bindTitleContent();
@@ -44,6 +46,7 @@ SQL;
 	 * Populates @property stmt and executes.
 	 *
 	 * @method create
+	 * @private
 	 * @return {Boolean} Success of post creation.
 	 */
 	private static function create() {
@@ -63,6 +66,7 @@ SQL;
 	 * Checks to see if user is logged in.
 	 *
 	 * @method main
+	 * @protected
 	 * @return {Boolean} Success of post creation and whether user is logged in.
 	 */
 	protected static function main() {

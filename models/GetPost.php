@@ -21,6 +21,7 @@ class GetPost extends Model
 	 *
 	 * @property query
 	 * @type String
+	 * @private
 	 */
 	private static $query = <<<SQL
 		SELECT posts.*
@@ -44,6 +45,7 @@ SQL;
 	 *
 	 * @property query_tags
 	 * @type String
+	 * @private
 	 */
 	private static $query_tags = <<<SQL
 		SELECT tags.name
@@ -58,6 +60,7 @@ SQL;
 	 *
 	 * @property stmt
 	 * @type Object
+	 * @private
 	 */
 	private static $stmt;
 	/**
@@ -65,6 +68,7 @@ SQL;
 	 *
 	 * @property stmt_tags
 	 * @type Object
+	 * @private
 	 */
 	private static $stmt_tags;
 	/**
@@ -73,6 +77,7 @@ SQL;
 	 *
 	 * @property parsedown
 	 * @type Object
+	 * @private
 	 */
 	private static $parsedown;
 
@@ -81,6 +86,7 @@ SQL;
 	 * Method for finding tags based on the post id.
 	 *
 	 * @method getTags
+	 * @private
 	 * @return {Array} List of tags.
 	 */
 	private static function getTags($id) {
@@ -99,6 +105,7 @@ SQL;
 	 * Method for converting content to HTML if requested.
 	 *
 	 * @method processContent
+	 * @private
 	 */
 	private static function processContent(&$value) {
 		if (self::$data['format'] == 'HTML' && isset($value['content'])) {
@@ -111,6 +118,7 @@ SQL;
 	 * Loops over all fetched posts to add tags and process content.
 	 *
 	 * @method querySuccess
+	 * @private
 	 * @return {Object} $result.
 	 */
 	private static function querySuccess() {
@@ -132,6 +140,7 @@ SQL;
 	 * On success calls @method querySuccess.
 	 *
 	 * @method executeQuery
+	 * @private
 	 * @return {Object} On success of executing query.
 	 */
 	private static function executeQuery() {
@@ -147,6 +156,7 @@ SQL;
 	 * Binds data to @property query.
 	 *
 	 * @method bindParams
+	 * @private
 	 */
 	private static function bindParams() {
 		self::$stmt->bindParam(':title', self::$data['title']);
@@ -158,6 +168,7 @@ SQL;
 	 * Prepares @property parsedown and @property stmt.
 	 *
 	 * @method prep
+	 * @private
 	 */
 	private static function prep() {
 		self::$parsedown = new Parsedown();
@@ -169,6 +180,7 @@ SQL;
 	 * Calls methods for executing database statement.
 	 *
 	 * @method main
+	 * @protected
 	 * @return {Object} Result of @property query.
 	 */
 	protected static function main() {

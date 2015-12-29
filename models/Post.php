@@ -20,6 +20,7 @@ class Post extends Model
 	 *
 	 * @property query_create_tag
 	 * @type String
+	 * @protected
 	 */
 	protected static $query_create_tag = <<<SQL
 		INSERT INTO tags (name)
@@ -34,6 +35,7 @@ SQL;
 	 *
 	 * @property query_join_tag
 	 * @type String
+	 * @protected
 	 */
 	protected static $query_join_tag = <<<SQL
 		INSERT INTO post_tag_maps (post_id, tag_id)
@@ -45,6 +47,7 @@ SQL;
 	 *
 	 * @property stmt
 	 * @type Object
+	 * @protected
 	 */
 	protected static $stmt;
 
@@ -53,6 +56,7 @@ SQL;
 	 * Method for creating tags and joining to post.
 	 *
 	 * @method createTags
+	 * @protected
 	 * @return {Boolean} Whether success of creating tags.
 	 */
 	protected static function createTags($post_id) {
@@ -78,6 +82,7 @@ SQL;
 	 * Method for binding data to @property stmt.
 	 *
 	 * @method bindTitleContent
+	 * @protected
 	 */
 	protected static function bindTitleContent() {
 		self::$stmt->bindParam(':title', self::$data['title']);

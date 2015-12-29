@@ -20,6 +20,7 @@ class UpdatePost extends Post
 	 *
 	 * @property query
 	 * @type String
+	 * @private
 	 */
 	private static $query = <<<SQL
 		UPDATE posts
@@ -32,6 +33,7 @@ SQL;
 	 *
 	 * @property query_delete_tags
 	 * @type String
+	 * @private
 	 */
 	private static $query_delete_tags = <<<SQL
 		DELETE post_tag_maps.*
@@ -46,6 +48,7 @@ SQL;
 	 * Method for deleting all tags associated with the post.
 	 *
 	 * @method deleteTags
+	 * @private
 	 * @return {Boolean} Whether tags creation and deletion was successful.
 	 */
 	private static function deleteTags() {
@@ -65,6 +68,7 @@ SQL;
 	 * Method for binding parameters to @property stmt
 	 *
 	 * @method bindParams
+	 * @private
 	 */
 	private static function bindParams() {
 		self::bindTitleContent();
@@ -76,6 +80,7 @@ SQL;
 	 * Also executes it.
 	 *
 	 * @method update
+	 * @private
 	 * @return {Boolean} Whether successfully updated post.
 	 */
 	private static function update() {
@@ -96,6 +101,7 @@ SQL;
 	 * Then calls @method update.
 	 *
 	 * @method main
+	 * @protected
 	 * @return {Boolean} Whether successfully updated post and logged in.
 	 */
 	protected static function main() {

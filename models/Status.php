@@ -15,6 +15,7 @@ class Status
 	 *
 	 * @property all
 	 * @type Array
+	 * @private
 	 */
 	private static $all = array();
 
@@ -24,6 +25,7 @@ class Status
 	 * Also echos that encoded data.
 	 *
 	 * @method encode
+	 * @private
 	 */
 	private static function encode() {
 		$json = json_encode(self::$all);
@@ -35,7 +37,7 @@ class Status
 	 * Fetches user data if logged in.
 	 * Then calls @method encode.
 	 *
-	 * @method init.
+	 * @method init
 	 */
 	public static function init() {
 		if (isset($_SESSION['user'])) {
