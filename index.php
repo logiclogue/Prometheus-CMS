@@ -22,6 +22,8 @@
 	<link rel="stylesheet" href="lib/normalize.css">
 	<link rel="stylesheet" href="lib/skeleton.css">
 
+	<link rel="stylesheet" href="style.css">
+
 </head>
 <body ng-app="promethius-cms">
 

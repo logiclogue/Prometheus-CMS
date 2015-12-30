@@ -10,6 +10,11 @@
 					<a href="#/posts/{{x.id}}">{{ x.title }}</a>
 				</td>
 				<td>
+					<ul class="ul-tags">
+						<li ng-repeat="y in x.tags"><a>{{ y }}</a></li>
+					</ul>
+				</td>
+				<td>
 					<a ng-click="delete(x.id)">Delete</a>
 				</td>
 			</tr>
