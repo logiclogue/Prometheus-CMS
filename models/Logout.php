@@ -6,7 +6,7 @@ session_start();
 
 
 /**
- * Logout model when called logs the user out.
+ * Logout model called when the user logs out.
  *
  * @class Logout
  * @extends Model
