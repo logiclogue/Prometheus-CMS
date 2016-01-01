@@ -23,7 +23,7 @@ app.factory('util', function ($http, $location)
 			$http({
 				url: url,
 				method: 'POST',
-				data: 'JSON=' + JSON.stringify(data),
+				data: 'JSON=' + encodeURIComponent(JSON.stringify(data)),
 				headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
 			})
 			.then(callback);
