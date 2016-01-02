@@ -1,9 +1,11 @@
 <div id="page-posts" class="container">
 
-	<button ng-click="createPost()">Create post</button>
-	<button ng-click="logout()">Logout</button>
+	<div class="row">
+		<button class="six columns" ng-click="createPost()">Create post</button>
+		<button class="six columns" ng-click="logout()">Logout</button>
+	</div>
 
-	<table>
+	<table class="u-full-width">
 		<tbody>
 			<tr ng-repeat="x in posts">
 				<td>
