@@ -69,6 +69,10 @@ app.controller('EditCtrl', function ($scope, $http, $location, $routeParams, uti
 		});
 	};
 
+	$scope.back = function () {
+		$location.path('/posts');
+	};
+
 
 	(function () {
 		if ($routeParams.param === 'new') {
